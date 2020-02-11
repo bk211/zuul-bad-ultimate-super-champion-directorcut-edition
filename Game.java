@@ -34,49 +34,56 @@ public class Game
      */
     private void createRooms()
     {
-        Room prarie, ville, chateau, marchand1, guild, entrainement, marchand2;
-        Room[] donjons = new Room[10];
-        Room escalier, caverne, sortieCaverne, tour, boss, fin;
-        // create the rooms
-        prarie = new Room("dans une vaste prarie");
-        ville = new Room("dans une grande ville");
-        marchand1 = new Room("chez un marchand");
-        marchand2 = new Room("chez un marchand");
-        guild = new Room("dans un guild");
-        entrainement = new Room("dans la salle d'entrainement");
-        chateau = new Room("dans le chateau du seigneur");
-        escalier = new Room("devant un escalier qui mène quelque part");
-        caverne = new Room("devant un caverne");
-        sortieCaverne = new Room("proche de la sortie du carvene");
-        tour = new Room("devant un tour géant");
-        boss = new Room("face au dragon");
-        fin = new Room("dans la fin du jeu");
+        Room parking = new Room("in the parking");
+        Room aile_gauche = new Room("in the left wing");
+        Room cargo1 = new Room("in the cargo1");
+        Room cargo2 = new Room("in the cargo2");
+        Room dock1 = new Room("in the dock1");
+        Room dock2 = new Room("in the dock2");
+        Room reactor = new Room("in the reactor room");
+        Room rest = new Room("in the rest room");
+        Room vestiaire = new Room("in the change room");
+        Room aile_droite = new Room("in the right wing");
+        Room cuisine = new Room("in the kitchen");
+        Room escalier = new Room("in the staires");
+        Room hall = new Room("in the room");
+        Room commandement = new Room("in the head quarter");
 
-        for (int i = 0; i < donjons.length; i++) {
-            donjons[i] = new Room("dans une salle du donjon");
-        }
-
+        
+        parking.setExit("east", aile_gauche);
+        cargo2.setExit("cargo1", cargo1);
+        cargo1.setExit("north", cargo2);
+        cargo1.setExit("south", aile_gauche);
+        cargo1.setExit("east", rest);
+        aile_gauche.setExit("north", cargo1);
+        aile_gauche.setExit("south", dock1);
+        aile_gauche.setExit("east", hall);
+        dock1.setExit("north", aile_gauche);
+        reactor.setExit("sud", rest);
+        rest.setExit("north", reactor);
+        rest.setExit("west", cargo1);
+        rest.setExit("south", hall);
+        rest.setExit("east", vestiaire);
+        hall.setExit("north", rest);
+        hall.setExit("west", aile_gauche);
+        hall.setExit("south", commandement);
+        hall.setExit("east", aile_droite);
+        commandement.setExit("north", hall);
+        vestiaire.setExit("west", rest);
+        vestiaire.setExit("south", aile_droite);
+        aile_droite.setExit("north", vestiaire);
+        aile_droite.setExit("west", hall);
+        aile_droite.setExit("south", cuisine);
+        aile_droite.setExit("east", dock2);
+        dock2.setExit("north", aile_droite);
+        cuisine.setExit("west", aile_droite);
+        cuisine.setExit("south", escalier);
+        escalier.setExit("north", cuisine);
+        
+        
         //setExits(Room north, Room east, Room south, Room west) 
         // initialise room exits
-        prarie.setExits(ville, null, donjons[1], null);
-        ville.setExits(chateau, guild, prarie, marchand1);
-        marchand1.setExits(null , ville, null, null);
-        guild.setExits(entrainement, null, null, ville);
-        donjons[1].setExits(null, donjons[2], donjons[3], prarie);
-        donjons[2].setExits(null, donjons[6], donjons[4], donjons[1]);
-        donjons[3].setExits(donjons[1], donjons[4], donjons[5], null);
-        donjons[4].setExits(donjons[2], null, null, donjons[3]);
-        donjons[5].setExits(donjons[3], null, marchand2, null);
-        donjons[6].setExits(null, null, escalier, null);
-        marchand2.setExits(null, escalier, null, null);
-        escalier.setExits(null, null, donjons[7], null);
-        donjons[7].setExits(null, caverne, null, null);
-        caverne.setExits(null, sortieCaverne, null, donjons[7]);
-        sortieCaverne.setExits(null, tour, null, caverne);
-        tour.setExits(null, boss, null, sortieCaverne);
-        boss.setExits(fin, null, null, null);
-
-        currentRoom = prarie;  // start game outside
+        currentRoom = parking;  // start game outside
 
     }
 
