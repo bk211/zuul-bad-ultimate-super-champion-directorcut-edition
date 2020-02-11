@@ -46,7 +46,7 @@ public class Game
         Room aile_droite = new Room("in the right wing");
         Room cuisine = new Room("in the kitchen");
         Room escalier = new Room("in the staires");
-        Room hall = new Room("in the room");
+        Room hall = new Room("in the Hall");
         Room commandement = new Room("in the head quarter");
 
         
@@ -57,7 +57,7 @@ public class Game
         cargo1.setExit("east", rest);
         aile_gauche.setExit("north", cargo1);
         aile_gauche.setExit("south", dock1);
-        aile_gauche.setExit("east", hall);
+        aile_gauche.setExit("up", hall);
         dock1.setExit("north", aile_gauche);
         reactor.setExit("sud", rest);
         rest.setExit("north", reactor);
