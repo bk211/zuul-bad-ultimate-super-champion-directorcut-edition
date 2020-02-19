@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,7 +21,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+    private HashMap<String,Room> rooms = new HashMap<String, Room>();
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -35,6 +38,8 @@ public class Game
     private void createRooms()
     {
         Room parking = new Room("in the parking");
+        rooms.put("parking", parking);
+
         Room aile_gauche = new Room("in the left wing");
         Room cargo1 = new Room("in the cargo1");
         Room cargo2 = new Room("in the cargo2");
