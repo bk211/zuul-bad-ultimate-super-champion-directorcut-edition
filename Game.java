@@ -22,12 +22,15 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private HashMap<String,Room> rooms = new HashMap<String, Room>();
+    private GameModel gameModel;
+
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
+        gameModel = new GameModel();
         createRooms();
         parser = new Parser();
     }
