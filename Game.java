@@ -19,7 +19,6 @@
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
     private GameModel gameModel;
     private GameView gameView;
 
@@ -74,7 +73,7 @@ public class Game
      */
     private void printLocationInfo()
     {
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(gameModel.getCurrentRoom().getLongDescription());
     }
 
 
@@ -136,14 +135,13 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = gameModel.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            currentRoom = nextRoom;
-            printLocationInfo();
+            gameModel.goRoom(nextRoom);
         }
     }
 
@@ -164,7 +162,7 @@ public class Game
     }
 
     private void look(){
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(gameModel.getCurrentRoom().getLongDescription());
     }
 
     private void eat(){
