@@ -11,11 +11,13 @@ public class GameModel extends Observable
 {
     
     private Room currentRoom;
+    private Parser parser;
     private HashMap<String,Room> rooms = new HashMap<String, Room>();
-
+    
     public GameModel()
     {
         createRooms();
+        this.parser = new Parser();
     }
 
     /**
@@ -104,11 +106,41 @@ public class GameModel extends Observable
     public String getHelpString()
     {
         return "You are lost. You are alone. You wander" + "\n" +
-                "around at the university.";
+                "around at the university."
+                +"\n"+ "Your command words are: ";
     }
     
     public String getLocationInfo() {
         return "You are " + getCurrentRoom().getDescription() + "\n" +
                 getCurrentRoom().getExitString();
+    }
+
+    public String getCommandString(){
+        return parser.showCommands();
+    }
+    
+    /** 
+     * Try to go to one direction. If there is an exit, enter
+     * the new room, otherwise print an error message.
+     */
+    private void goRoom(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            gameView.show("Go where?");
+            return;
+        }
+
+        String direction = command.getSecondWord();
+
+        // Try to leave current room.
+        Room nextRoom = gameModel.getCurrentRoom().getExit(direction);
+
+        if (nextRoom == null) {
+            gameView.show("There is no door!");
+        }
+        else {
+            gameModel.goRoom(nextRoom);
+        }
     }
 }

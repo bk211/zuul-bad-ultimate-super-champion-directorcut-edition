@@ -18,7 +18,6 @@
 
 public class Game 
 {
-    private Parser parser;
     private GameModel gameModel;
     private GameView gameView;
 
@@ -29,9 +28,9 @@ public class Game
     public Game() 
     {
         gameModel = new GameModel();
+        
         gameView = new GameView(gameModel);
         gameModel.addObserver(gameView);
-        parser = new Parser();
     }
 
 
@@ -41,8 +40,7 @@ public class Game
      */
     public void play() 
     {            
-        System.out.println(gameModel.getWelcomeString());
-        printWelcome();
+        gameView.printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
@@ -52,30 +50,8 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        gameView.show("Thank you for playing.  Good bye.");
     }
-
-    /**
-     * Print out the opening message for the player.
-     */
-    private void printWelcome()
-    {
-        System.out.println(gameModel.getWelcomeString());
-        System.out.println("Type 'help' if you need help.");
-        System.out.println();
-
-        printLocationInfo();
-
-    }
-
-    /**
-     * print out all exit of the currentRomm location
-     */
-    private void printLocationInfo()
-    {
-        System.out.println(gameModel.getCurrentRoom().getLongDescription());
-    }
-
 
     /**
      * Given a command, process (that is: execute) the command.
@@ -87,15 +63,15 @@ public class Game
         boolean wantToQuit = false;
 
         if(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
+            gameView.show("I don't know what you mean...");
             return false;
         }
 
         String commandWord = command.getCommandWord();
         if (commandWord.equals("help"))
-            printHelp();
+            gameView.printHelp();
         else if (commandWord.equals("go"))
-            goRoom(command);
+            gameModel.goRoom(command);
         else if (commandWord.equals("look"))
             look();
         else if (commandWord.equals("eat"))
@@ -108,42 +84,6 @@ public class Game
 
     // implementations of user commands:
 
-    /**
-     * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
-     * command words.
-     */
-    private void printHelp() 
-    {
-        System.out.println(gameModel.getHelpString());
-        System.out.println("Your command words are:");
-        parser.showCommands();
-    }
-
-    /** 
-     * Try to go to one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = gameModel.getCurrentRoom().getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            gameModel.goRoom(nextRoom);
-        }
-    }
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
@@ -153,7 +93,7 @@ public class Game
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            gameView.show("Quit what?");
             return false;
         }
         else {
@@ -162,11 +102,11 @@ public class Game
     }
 
     private void look(){
-        System.out.println(gameModel.getCurrentRoom().getLongDescription());
+        gameView.show(gameModel.getCurrentRoom().getLongDescription());
     }
 
     private void eat(){
-        System.out.println("There are no food");
+        gameView.show("There are no food");
     }
 
 }
