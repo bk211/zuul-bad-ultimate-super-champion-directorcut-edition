@@ -68,6 +68,11 @@ public class GameView implements Observer
     public void update(Observable o, Object arg)
     {
         printLocationInfo();
+        String imageLink = gameModel.getImageLinkString();
+        //debug line;
+        //System.out.println(">>>" + imageLink);
+        userInterface.showImage("img/castle.gif");
+
     }
 
     /**

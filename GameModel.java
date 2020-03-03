@@ -1,4 +1,5 @@
 import java.util.Observable;
+import java.util.Stack;
 import java.util.HashMap;
 
 /**
@@ -13,10 +14,12 @@ public class GameModel extends Observable
     private Room currentRoom;
     private Parser parser;
     private HashMap<String,Room> rooms = new HashMap<String, Room>();
+    private Stack<Room> pastRooms;
     private GameView gameView;
 
     public GameModel()
     {
+        pastRooms = new Stack<Room>();
         createRooms();
         this.parser = new Parser();
     }
@@ -31,9 +34,7 @@ public class GameModel extends Observable
      */
     private void createRooms()
     {
-        Room parking = new Room("in the parking");
-        rooms.put("parking", parking);
-
+        Room parking = new Room("in the parking");        
         Room aile_gauche = new Room("in the left wing");
         Room cargo1 = new Room("in the cargo1");
         Room cargo2 = new Room("in the cargo2");
@@ -47,7 +48,10 @@ public class GameModel extends Observable
         Room escalier = new Room("in the staires");
         Room hall = new Room("in the Hall");
         Room commandement = new Room("in the head quarter");
-
+        
+        parking.setImageLink("img/castle.gif");
+        aile_gauche.setImageLink("img/courtyard.gif");
+        rooms.put("parking", parking);
         
         parking.setExit("east", aile_gauche);
         cargo2.setExit("cargo1", cargo1);
@@ -83,7 +87,6 @@ public class GameModel extends Observable
         //setExits(Room north, Room east, Room south, Room west) 
         // initialise room exits
         currentRoom = parking;  // start game outside
-
     }
 
     public Room getCurrentRoom()
@@ -93,11 +96,23 @@ public class GameModel extends Observable
 
     public void goRoom(Room nextRoom)
     {
+        pastRooms.add(currentRoom);
         currentRoom = nextRoom;
         setChanged();
         notifyObservers();
     }
     
+    public void goBack(Room nextRoom)
+    {
+        currentRoom = nextRoom;
+        setChanged();
+        notifyObservers();
+    }
+    
+    public String getImageLinkString(){
+        return currentRoom.getImageLinkString();
+    }
+
     public String getWelcomeString() 
     {
         return "Welcome to the World of Zuul!" + "\n" + 
@@ -151,16 +166,13 @@ public class GameModel extends Observable
         Room nextRoom = getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
-            gameView.show("There is no door!");
+            gameView.show("There is no door!\n");
         }
         else {
-            setCurrentRoom(nextRoom);
+            goRoom(nextRoom);
         }
     }
 
-    private void setCurrentRoom(Room r){
-        currentRoom = r;
-    }
 
     public void interpretCommandString(String userInput){
         Command command = parser.getCommand(userInput);
@@ -176,6 +188,7 @@ public class GameModel extends Observable
     public void play() 
     {            
         gameView.printWelcome();
+//        gameView.update(o, arg);
     }
 
 
@@ -199,6 +212,9 @@ public class GameModel extends Observable
         else if (commandWord.equals("go")){
             goRoom(command);
         }
+        else if (commandWord.equals("back")){
+            goBack(command);
+        }
         else if (commandWord.equals("look")){
             look();
         }
@@ -212,9 +228,26 @@ public class GameModel extends Observable
         }
 
         return true;
-    }
+    } 
 
-    // implementations of user commands:
+    /** 
+     * Try to go Back to one direction. If there is an visited Room, enter
+     * that room, otherwise print an error message.
+     */
+    private void goBack(Command command){
+        if(command.hasSecondWord()) {
+            gameView.show("Back what?\n");
+        }
+        else if(pastRooms.empty()){
+            // si la pile est vide
+            gameView.show("No record of last visited room");
+        }else{
+            // la commande est valide
+            // Try to leave current room.
+            Room nextRoom = pastRooms.pop();
+            goBack(nextRoom);
+        }
+    }
 
 
     /** 
@@ -232,6 +265,10 @@ public class GameModel extends Observable
             return true;
         }
     }
+
+    /**
+     * loop closely inside the room, print out the long description of the current Room
+     */
 
     private void look(){
         gameView.show(getCurrentRoom().getLongDescription());
