@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -18,6 +19,16 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;
+    private String imageLink;
+    private ArrayList<Item> items;
+
+    /**
+     * Add the item i to the items collection
+     * @param i
+     */
+    public void addItem(Item i){
+        items.add(i);
+    }
 
     /**
      * Create a room described "description". Initially, it has
@@ -29,7 +40,11 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<String, Room>();
+        imageLink = null;
+        items = new ArrayList<Item>();
     }
+
+
 
     /*** Return the room that is reached if we go from this 
      * room in direction "direction". If there is no room in 
@@ -38,6 +53,22 @@ public class Room
     public Room getExit(String direction)
     {
         return exits.get(direction);
+    }
+
+
+    /**
+     * set url as imageLink
+     * @param url
+     */
+    public void setImageLink(String url){
+        imageLink = url;
+    }
+    
+    /**
+     * return imageLink
+     */
+    public String getImageLinkString(){
+        return imageLink;
     }
 
     /**
@@ -88,7 +119,17 @@ public class Room
      * @return A description of the room, including exits.
     */
     public String getLongDescription(){
-        return "You are " + description + ".\n" + getExitString()+"\n";
+        return "You are " + description + ".\n"+ getItemsDescription() +"\n" + getExitString()+"\n";
+    }
+    /**
+     * return a String that contain all the item's description cotainned in the Room
+     */
+    public String getItemsDescription(){
+        String result = "";
+        for (Item item : items) {
+            result += item.getDescription()+ "\n";
+        }
+        return result;
     }
 
     /**
