@@ -31,6 +31,7 @@ public class Game
         
         gameView = new GameView(gameModel);
         gameModel.addObserver(gameView);
+        gameModel.addGameView(gameView);
     }
 
 
@@ -38,75 +39,11 @@ public class Game
     /**
      *  Main play routine.  Loops until end of play.
      */
-    public void play() 
+    public void lauch() 
     {            
-        gameView.printWelcome();
-
-        // Enter the main command loop.  Here we repeatedly read commands and
-        // execute them until the game is over.
-                
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        gameView.show("Thank you for playing.  Good bye.");
+        gameModel.play();    
     }
 
-    /**
-     * Given a command, process (that is: execute) the command.
-     * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
-     */
-    private boolean processCommand(Command command) 
-    {
-        boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
-            gameView.show("I don't know what you mean...");
-            return false;
-        }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help"))
-            gameView.printHelp();
-        else if (commandWord.equals("go"))
-            gameModel.goRoom(command);
-        else if (commandWord.equals("look"))
-            look();
-        else if (commandWord.equals("eat"))
-            eat();
-        else if (commandWord.equals("quit"))
-            wantToQuit = quit(command);
-
-        return wantToQuit;
-    }
-
-    // implementations of user commands:
-
-
-    /** 
-     * "Quit" was entered. Check the rest of the command to see
-     * whether we really quit the game.
-     * @return true, if this command quits the game, false otherwise.
-     */
-    private boolean quit(Command command) 
-    {
-        if(command.hasSecondWord()) {
-            gameView.show("Quit what?");
-            return false;
-        }
-        else {
-            return true;  // signal that we want to quit
-        }
-    }
-
-    private void look(){
-        gameView.show(gameModel.getCurrentRoom().getLongDescription());
-    }
-
-    private void eat(){
-        gameView.show("There are no food");
-    }
 
 }

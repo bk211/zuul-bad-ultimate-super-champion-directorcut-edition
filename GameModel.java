@@ -13,12 +13,18 @@ public class GameModel extends Observable
     private Room currentRoom;
     private Parser parser;
     private HashMap<String,Room> rooms = new HashMap<String, Room>();
-    
+    private GameView gameView;
+
     public GameModel()
     {
         createRooms();
         this.parser = new Parser();
     }
+
+    public void addGameView(GameView gm){
+        gameView = gm;
+    }
+
 
     /**
      * Create all the rooms and link their exits together.
@@ -109,6 +115,10 @@ public class GameModel extends Observable
                 "around at the university."
                 +"\n"+ "Your command words are: ";
     }
+
+    public String getExitString(){
+        return "You have deicided to quit the game, see you soon! \n";
+    }
     
     public String getLocationInfo() {
         return "You are " + getCurrentRoom().getDescription() + "\n" +
@@ -118,12 +128,16 @@ public class GameModel extends Observable
     public String getCommandString(){
         return parser.showCommands();
     }
+/*
+    public Command getCommand(){
+        return parser.getCommand();
+    }*/
     
     /** 
      * Try to go to one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
      */
-    private void goRoom(Command command) 
+    public void goRoom(Command command) 
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
@@ -134,13 +148,97 @@ public class GameModel extends Observable
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = gameModel.getCurrentRoom().getExit(direction);
+        Room nextRoom = getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             gameView.show("There is no door!");
         }
         else {
-            gameModel.goRoom(nextRoom);
+            setCurrentRoom(nextRoom);
         }
     }
+
+    private void setCurrentRoom(Room r){
+        currentRoom = r;
+    }
+
+    public void interpretCommandString(String userInput){
+        Command command = parser.getCommand(userInput);
+        //debug line>>
+        //System.out.println(">"+command.getSecondWord()+"<");
+        processCommand(command);
+        
+    }
+    
+    /**
+     *  Main play routine.  Loops until end of play.
+     */
+    public void play() 
+    {            
+        gameView.printWelcome();
+    }
+
+
+    /**
+     * Given a command, process (that is: execute) the command.
+     * @param command The command to be processed.
+     * @return true If the command ends the game, false otherwise.
+     */
+    private boolean processCommand(Command command) 
+    {
+
+        if(command.isUnknown()) {
+            gameView.show("I don't know what you mean...\n");
+            return false;
+        }
+
+        String commandWord = command.getCommandWord();
+        if (commandWord.equals("help")){
+            gameView.printHelp();
+        }
+        else if (commandWord.equals("go")){
+            goRoom(command);
+        }
+        else if (commandWord.equals("look")){
+            look();
+        }
+        else if (commandWord.equals("eat")){
+            eat();
+        }
+        else if (commandWord.equals("quit")){
+            if (confirmQuit(command) == true){
+                gameView.disable();                
+            }
+        }
+
+        return true;
+    }
+
+    // implementations of user commands:
+
+
+    /** 
+     * "Quit" was entered. Check the rest of the command to see
+     * whether we really quit the game.
+     * @return true, if this command quits the game, false otherwise.
+     */
+    private boolean confirmQuit(Command command) 
+    {
+        if(command.hasSecondWord()) {
+            gameView.show("Quit what?\n");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private void look(){
+        gameView.show(getCurrentRoom().getLongDescription());
+    }
+
+    private void eat(){
+        gameView.show("There are no food\n");
+    }
+
 }

@@ -30,7 +30,7 @@ public class GameView implements Observer
     public void printWelcome()
     {
         show("\n" + gameModel.getWelcomeString() + "\n");
-        show("Type 'help' if you need help.");
+        show("Type 'help' if you need help.\n");
         printLocationInfo();
     }
     
@@ -68,5 +68,12 @@ public class GameView implements Observer
     public void update(Observable o, Object arg)
     {
         printLocationInfo();
+    }
+
+    /**
+     * disable userinput and user interaction button (fake quit)
+     */
+    public void disable(){
+        userInterface.enable(false);
     }
 }

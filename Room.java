@@ -50,7 +50,7 @@ public class Room
         for (String keys : exits.keySet()) {
             exitString += keys + " ";
         }
-        return exitString ;
+        return exitString +"\n";
     }
     
 
@@ -88,7 +88,7 @@ public class Room
      * @return A description of the room, including exits.
     */
     public String getLongDescription(){
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getExitString()+"\n";
     }
 
     /**

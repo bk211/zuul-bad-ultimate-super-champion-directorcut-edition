@@ -1,6 +1,4 @@
 import java.util.StringTokenizer;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -34,23 +32,11 @@ public class Parser
      * Get a new command from the user. The command is read by
      * parsing the 'inputLine'.
      */
-    public Command getCommand() 
+    public Command getCommand(String inputLine) 
     {
-        String inputLine = "";   // will hold the full input line
+        //String inputLine = "";   // will hold the full input line
         String word1;
         String word2;
-
-        System.out.print("> ");     // print prompt
-
-        BufferedReader reader = 
-            new BufferedReader(new InputStreamReader(System.in));
-        try {
-            inputLine = reader.readLine();
-        }
-        catch(java.io.IOException exc) {
-            System.out.println ("There was an error during reading: "
-                                + exc.getMessage());
-        }
 
         StringTokenizer tokenizer = new StringTokenizer(inputLine);
 
@@ -72,8 +58,7 @@ public class Parser
             return new Command(word1, word2);
         else
             return new Command(null, word2);
-    }
-    
+    }   
 
     /**
      * return a String of valid command words.

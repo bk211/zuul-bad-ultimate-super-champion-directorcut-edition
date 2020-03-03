@@ -97,6 +97,7 @@ public class UserInterface implements ActionListener
 
         JPanel panel = new JPanel();
         image = new JLabel();
+        
 
         panel.setLayout(new BorderLayout());
         panel.add(image, BorderLayout.NORTH);
@@ -127,7 +128,9 @@ public class UserInterface implements ActionListener
         // check the type of action at the moment.
         // then perfome the matching action: button click or text entry
         if(e.getSource() == button){
-            gameModel.interpretCommand("quit");
+            //debug line
+            println("quit button pressed");
+            gameModel.interpretCommandString("quit");
         }else if(e.getSource() == entryField){
             processCommand();
         }
@@ -139,10 +142,9 @@ public class UserInterface implements ActionListener
      */
     private void processCommand()
     {
-        boolean finished = false;
         String input = entryField.getText();
         entryField.setText("");
-
-        gameModel.interpretCommand(input);
+        
+        gameModel.interpretCommandString(input);
     }
 }
