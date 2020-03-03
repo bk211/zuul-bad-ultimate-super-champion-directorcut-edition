@@ -74,6 +74,7 @@ public class GameView implements Observer
      * disable userinput and user interaction button (fake quit)
      */
     public void disable(){
+        show(gameModel.getExitString());
         userInterface.enable(false);
     }
 }
