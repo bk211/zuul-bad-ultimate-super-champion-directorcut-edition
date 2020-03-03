@@ -76,8 +76,11 @@ public class UserInterface implements ActionListener
     public void enable(boolean on)
     {
         entryField.setEditable(on);
-        if(!on)
+        button.setEnabled(on);
+        if(!on){
             entryField.getCaret().setBlinkRate(0);
+            button.setEnabled(false);
+        }
     }
 
     /**
