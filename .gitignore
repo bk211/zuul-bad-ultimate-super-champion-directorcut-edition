@@ -10,3 +10,5 @@ Command
 
 material/*
 *.odt
+docprog/*
+docuser/*
