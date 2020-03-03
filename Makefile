@@ -1,5 +1,5 @@
 CC= javac
-CCFLAGS = -Werror -Xlint
+CCFLAGS = -Werror -Xlint:-path
 
 Main.class:	Main.java Command.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
 	$(CC) $(CCFLAGS) Main.java
@@ -28,4 +28,4 @@ run:
 	java Main
 
 clean:	
-	rm -rf Command.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Main.class
+	rm -rf *.class
