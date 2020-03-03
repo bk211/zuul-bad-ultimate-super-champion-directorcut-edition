@@ -98,6 +98,10 @@ public class GameModel extends Observable
     {
         pastRooms.add(currentRoom);
         currentRoom = nextRoom;
+        if(currentRoom.getImageLinkString() != null){
+            gameView.showImage(currentRoom.getImageLinkString());
+        }
+
         setChanged();
         notifyObservers();
     }
@@ -105,6 +109,9 @@ public class GameModel extends Observable
     public void goBack(Room nextRoom)
     {
         currentRoom = nextRoom;
+        if(currentRoom.getImageLinkString() != null){
+            gameView.showImage(currentRoom.getImageLinkString());
+        }
         setChanged();
         notifyObservers();
     }

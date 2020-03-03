@@ -32,6 +32,7 @@ public class GameView implements Observer
         show("\n" + gameModel.getWelcomeString() + "\n");
         show("Type 'help' if you need help.\n");
         printLocationInfo();
+        userInterface.showImage(gameModel.getCurrentRoom().getImageLinkString());
     }
     
     /**
@@ -65,13 +66,17 @@ public class GameView implements Observer
         userInterface.print(string);
     }
    
+    public void showImage(String imageName){
+        userInterface.showImage(imageName);
+    }
+
     public void update(Observable o, Object arg)
     {
         printLocationInfo();
-        String imageLink = gameModel.getImageLinkString();
+        //String imageLink = gameModel.getImageLinkString();
         //debug line;
         //System.out.println(">>>" + imageLink);
-        userInterface.showImage("img/castle.gif");
+        //userInterface.showImage();
 
     }
 
