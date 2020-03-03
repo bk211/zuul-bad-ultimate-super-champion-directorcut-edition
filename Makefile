@@ -29,3 +29,7 @@ run:
 
 clean:	
 	rm -rf *.class
+
+doc:	
+	javadoc -d docprog -author -version -private -linksource *.java
+	javadoc -d docuser -author -version *.java
