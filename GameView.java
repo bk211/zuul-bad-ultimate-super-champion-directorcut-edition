@@ -15,6 +15,10 @@ public class GameView implements Observer
     private UserInterface userInterface;
 
 
+    /**
+     * Default constructor 
+     * @param gameModel the given GameModel
+     */
     public GameView(GameModel gameModel)
     {
         this.gameModel = gameModel;
@@ -26,7 +30,6 @@ public class GameView implements Observer
     /**
      * Print out the opening message for the player.
      */
-
     public void printWelcome()
     {
         show("\n" + gameModel.getWelcomeString() + "\n");
@@ -44,32 +47,44 @@ public class GameView implements Observer
         show(gameModel.getLocationInfo());
     }
     
+    /**
+     * display the goodbye string
+     */
     public void printGoodBye() 
     {
         show(gameModel.getGoodByeString());
+        show(gameModel.getExitString());
     }
 
-        /**
+    /**
      * Print out some help information.
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
      */
-    
     public void printHelp()
     {
         show(gameModel.getHelpString());
         show(gameModel.getCommandString());
     }
    
+    /**
+     * display the input String
+     * @param string the String to be displayed
+     */
     public void show(String string) 
     {
         userInterface.print(string);
     }
    
+    /**
+     * display the image associated with its path name
+     * @param imageName the path to the image
+     */
     public void showImage(String imageName){
         userInterface.showImage(imageName);
     }
 
+    @Override
     public void update(Observable o, Object arg)
     {
         printLocationInfo();

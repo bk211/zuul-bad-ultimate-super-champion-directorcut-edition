@@ -24,7 +24,7 @@ public class Room
 
     /**
      * Add the item i to the items collection
-     * @param i
+     * @param i the item that will be add to the items collection
      */
     public void addItem(Item i){
         items.add(i);
@@ -49,6 +49,8 @@ public class Room
     /*** Return the room that is reached if we go from this 
      * room in direction "direction". If there is no room in 
      * that direction, return null.
+     * @param direction the exit that we want to reach
+     * @return the avaible exit string, otherwise null
     */
     public Room getExit(String direction)
     {
@@ -57,15 +59,16 @@ public class Room
 
 
     /**
-     * set url as imageLink
-     * @param url
+     * set imageName as imageLink
+     * @param imageName the path to the image file 
      */
-    public void setImageLink(String url){
-        imageLink = url;
+    public void setImageLink(String imageName){
+        imageLink = imageName;
     }
     
     /**
-     * return imageLink
+     * return path to the Image file
+     * @return the name of the image
      */
     public String getImageLinkString(){
         return imageLink;
@@ -98,8 +101,11 @@ public class Room
     /**
      * Define the exits of this room.  Every direction either 
      * leads to another room or is null (no exit there).
-    */
-
+     * @param north the north direction
+     * @param east the east direction
+     * @param south the south direction
+     * @param west the west direction
+     */
     public void setExits(Room north, Room east, Room south, Room west) 
     {
         if(north != null)
@@ -121,8 +127,10 @@ public class Room
     public String getLongDescription(){
         return "You are " + description + ".\n"+ getItemsDescription() +"\n" + getExitString()+"\n";
     }
+
     /**
      * return a String that contain all the item's description cotainned in the Room
+     * @return description of items in the room
      */
     public String getItemsDescription(){
         String result = "";

@@ -37,7 +37,7 @@ public class Game
 
 
     /**
-     *  Main play routine.  Loops until end of play.
+     *  Main play routine.
      */
     public void lauch() 
     {            

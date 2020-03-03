@@ -17,6 +17,9 @@ public class GameModel extends Observable
     private Stack<Room> pastRooms;
     private GameView gameView;
 
+    /**
+     * default constructor for this class
+     */
     public GameModel()
     {
         pastRooms = new Stack<Room>();
@@ -24,6 +27,10 @@ public class GameModel extends Observable
         this.parser = new Parser();
     }
 
+    /**
+     * Set gm as gameView
+     * @param gm the given GameView object
+     */
     public void addGameView(GameView gm){
         gameView = gm;
     }
@@ -89,11 +96,20 @@ public class GameModel extends Observable
         currentRoom = parking;  // start game outside
     }
 
+    /**
+     * return the currentRoom object
+     * @return currentRoom , the cuurrent location Room
+     */
+
     public Room getCurrentRoom()
     {
         return currentRoom;
     }
 
+    /**
+     * go to the next room, also change the picture of the display,
+     * @param nextRoom the room that the player will go to
+     */
     public void goRoom(Room nextRoom)
     {
         pastRooms.add(currentRoom);
@@ -105,32 +121,56 @@ public class GameModel extends Observable
         setChanged();
         notifyObservers();
     }
+
+    /**
+     * go to the last visited room, also change the picture of the display
+     * @param lastRoom the last visited room
+     */
     
-    public void goBack(Room nextRoom)
+    public void goBack(Room lastRoom)
     {
-        currentRoom = nextRoom;
+        currentRoom = lastRoom;
         if(currentRoom.getImageLinkString() != null){
             gameView.showImage(currentRoom.getImageLinkString());
         }
         setChanged();
         notifyObservers();
     }
+
+    /**
+     * return the path to the image as String
+     * @return the imageName
+     */
     
     public String getImageLinkString(){
         return currentRoom.getImageLinkString();
     }
 
+    /**
+     * return the welcome greeting String
+     * @return greeting String
+     */
+
     public String getWelcomeString() 
     {
-        return "Welcome to the World of Zuul!" + "\n" + 
-               "World of Zuul is a new, incredibly boring adventure game.";
+        return "Welcome to the world of Albator,\n" 
+        +"You are a space traveler pirate wandering in the Milky way \n"
+        +"in the search of great treasure and exciting adventure  ";
     }
     
+    /**
+     * return the goobye String
+     * @return goodbye String
+     */
     public String getGoodByeString()
     {
         return "Thank you for playing.  Good bye.";
     }
-    
+
+    /**
+     * return the help String
+     * @return help String
+     */
     public String getHelpString()
     {
         return "You are lost. You are alone. You wander" + "\n" +
@@ -138,26 +178,36 @@ public class GameModel extends Observable
                 +"\n"+ "Your command words are: ";
     }
 
+    /**
+     * return the exit String
+     * @return exit String
+     */
     public String getExitString(){
         return "You have deicided to quit the game, see you soon! \n";
     }
     
+
+    /**
+     * return the description of the current Room and its exits
+     * @return the current location info that contain the room description, and its exits
+     */
     public String getLocationInfo() {
         return "You are " + getCurrentRoom().getDescription() + "\n" +
                 getCurrentRoom().getExitString();
     }
 
+    /**
+     * return all commands availble
+     * @return all commands availble for the user
+     */
     public String getCommandString(){
         return parser.showCommands();
     }
-/*
-    public Command getCommand(){
-        return parser.getCommand();
-    }*/
     
     /** 
      * Try to go to one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
+     * @param command the input direction command
      */
     public void goRoom(Command command) 
     {
@@ -180,7 +230,10 @@ public class GameModel extends Observable
         }
     }
 
-
+    /**
+     * Interpret the input String as a command and process it
+     * @param userInput the String send by the user
+     */
     public void interpretCommandString(String userInput){
         Command command = parser.getCommand(userInput);
         //debug line>>
@@ -240,6 +293,7 @@ public class GameModel extends Observable
     /** 
      * Try to go Back to one direction. If there is an visited Room, enter
      * that room, otherwise print an error message.
+     * @param command the command to be analyzed
      */
     private void goBack(Command command){
         if(command.hasSecondWord()) {
@@ -260,6 +314,7 @@ public class GameModel extends Observable
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
+     * @param command the confirmation command
      * @return true, if this command quits the game, false otherwise.
      */
     private boolean confirmQuit(Command command) 

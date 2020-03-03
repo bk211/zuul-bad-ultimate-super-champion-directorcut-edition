@@ -31,6 +31,8 @@ public class Parser
     /**
      * Get a new command from the user. The command is read by
      * parsing the 'inputLine'.
+     * @param inputLine the given input line
+     * @return the command object made from the input line
      */
     public Command getCommand(String inputLine) 
     {
@@ -62,6 +64,7 @@ public class Parser
 
     /**
      * return a String of valid command words.
+     * @return the String that contain all the valid command words
      */
     public String showCommands(){
         return commands.getCommandList();

@@ -25,20 +25,24 @@ public class UserInterface implements ActionListener
      * (an object processing and executing the game commands) is
      * needed.
      * 
-     * @param gameEngine  The GameEngine object implementing the game logic.
      */
     public UserInterface()
     {
-//        engine = gameEngine;
         createGUI();
     }
 
+    /** 
+     * Set gm as gameModel
+     * @param gm the GameModel
+     * 
+     */
     public void addGameModel(GameModel gm){
         gameModel = gm;
     }
 
     /**
      * Print out some text into the text area.
+     * @param text the text to be displayed
      */
     public void print(String text)
     {
@@ -48,6 +52,7 @@ public class UserInterface implements ActionListener
 
     /**
      * Print out some text into the text area, followed by a line break.
+     * @param text the text to be displayed
      */
     public void println(String text)
     {
@@ -57,6 +62,7 @@ public class UserInterface implements ActionListener
 
     /**
      * Show an image file in the interface.
+     * @param imageName the path to the image file
      */
     public void showImage(String imageName)
     {
@@ -72,6 +78,7 @@ public class UserInterface implements ActionListener
 
     /**
      * Enable or disable input in the input field.
+     * @param on the switch 
      */
     public void enable(boolean on)
     {

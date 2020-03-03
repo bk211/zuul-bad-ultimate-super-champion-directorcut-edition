@@ -26,6 +26,7 @@ public class CommandWords
 
     /**
      * Check whether a given String is a valid command word. 
+     * @param aString the given String
      * @return true if a given string is a valid command,
      * false if it isn't.
      */
@@ -41,6 +42,7 @@ public class CommandWords
 
     /**
      * return a String that containg all valid command word
+     * @return the result String
     */
     public String getCommandList(){
         String result = "";
