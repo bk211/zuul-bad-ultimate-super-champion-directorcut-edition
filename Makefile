@@ -1,27 +1,28 @@
 CC= javac
+CCFLAGS = -Werror
 
 Main.class:	Main.java Command.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
 	$(CC) Main.java
 
 Item.class:	Item.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 
 Command.class:	Command.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 CommandWords.class:	CommandWords.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 Game.class:	Game.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 GameModel.class:	GameModel.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 GameView.class:	GameView.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 Parser.class:	Parser.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 Room.class:	Room.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 UserInterface.class:	UserInterface.java
-	$(CC) $<
+	$(CC) $(CCFLAGS) $<
 
 run:
 	java Main
