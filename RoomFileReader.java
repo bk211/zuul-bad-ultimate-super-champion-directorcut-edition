@@ -36,7 +36,10 @@ public class RoomFileReader{
             bufferArray = records.get(i);//lecture premier ligne: name, description, imageName
             String name = bufferArray.get(0);
             Room room = new Room(bufferArray.get(1));
-            room.setImageLink(bufferArray.get(2));
+            String imageName =bufferArray.get(2);
+            if(imageName != "NULL"){//si la salle a une image, sinon, elle est set a null par defaut
+                room.setImageLink(bufferArray.get(2));
+            } 
 
             bufferArray = records.get(i+1);//lecture second ligne: exits
             for (int j = 0; j < bufferArray.size(); j+=2) {
