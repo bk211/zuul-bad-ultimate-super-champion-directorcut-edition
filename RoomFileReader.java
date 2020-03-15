@@ -40,8 +40,8 @@ public class RoomFileReader{
             if(imageName != "NULL"){//si la salle a une image, sinon, elle est set a null par defaut
                 room.setImageLink(bufferArray.get(2));
             } 
-
             bufferArray = records.get(i+1);//lecture second ligne: exits
+            
             for (int j = 0; j < bufferArray.size(); j+=2) {
                 ArrayList<String> bufferExits = new ArrayList<String>();
                 bufferExits.add(name);
@@ -50,24 +50,29 @@ public class RoomFileReader{
                 exitsStack.add(bufferExits);
             }
 
-            //System.out.println("exitistack :"+exitsStack);
-            
             bufferArray = records.get(i+2);//lecture items
-            for (int j = 0; j < bufferArray.size(); j+=2) {
-                String itemName = bufferArray.get(j);
-                if(itemName == "NULL"){
-                    itemName = "No description avaible for this item";
-                }
-                double itemWeight = Double.parseDouble(bufferArray.get(j+1));
-                room.addItem(new Item(itemName, itemWeight));
+            if(!bufferArray.get(0).equals("NONE")){
                 
+                for (int k = 0; k < bufferArray.size(); k+=2) {        
+                    String itemName = bufferArray.get(k);
+                    if(itemName == "NULL"){
+                        itemName = "No description avaible for this item";
+                    }
+                    double itemWeight = Double.parseDouble(bufferArray.get(k+1));
+                    room.addItem(new Item(itemName, itemWeight));
+                }            
             }
+            
+            
 
             rooms.put(name, room);
+            
         }
 
+
         for (ArrayList<String> exitsList : exitsStack) {// ajouts des exits 
-            System.out.println(exitsList);
+            //System.out.println(exitsList);
+
             Room src = rooms.get(exitsList.get(0));
             Room dst = rooms.get(exitsList.get(2));
             src.setExit(exitsList.get(1), dst);

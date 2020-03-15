@@ -1,9 +1,42 @@
-Parking,Ceci est un parking,foo.jpg
-north, foo, south, east
-Ceci est une pomme, 4.2
-foo,Ceci est un foo,foo.jpg
-north, algo, east, algo
-Ceci est une pomme, 4.2
-algo,Ceci est un algo,foo.jpg
-north, Parking, east, apple
-Ceci est une pomme, 4.2
+parking,in the parking,img/castle.gif
+east,aile_gauche
+Il y a une pomme par terre, 4.2
+aile_gauche,in the left wing,img/courtyard.gif
+north,cargo1,south,dock1,up,hall
+NONE
+cargo1,in the cargo1,NULL
+north,cargo2,south,aile_gauche,east,rest
+NONE
+cargo2,in the cargo2,NULL
+south,cargo1
+NONE
+dock1,in the dock1,NULL
+north,aile_gauche
+NONE
+dock2,in the dock2,NULL
+north,aile_droite
+NONE
+reactor,in the reactor room,NULL
+sud,rest
+NONE
+rest,in the rest room,NULL
+north,reactor,west,cargo1,south,hall,east,vestiaire
+NONE
+vestiaire,in the change room,NULL
+west,rest,south,aile_droite
+NONE
+aile_droite,in the right wing,NULL
+north,vestiaire,west,hall,south,cuisine,east,dock2
+NONE
+cuisine,in the kitchen,NULL
+west,aile_droite,south,escalier
+NONE
+escalier,in the staires,NULL
+north,cuisine
+NONE
+hall,in the Hall,NULL
+north,rest,west,aile_gauche,south,commandement,east,aile_droite,
+NONE
+commandement,in the head quarter,NULL
+north,hall
+NONE
