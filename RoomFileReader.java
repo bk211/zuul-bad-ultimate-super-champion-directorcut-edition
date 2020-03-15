@@ -31,7 +31,8 @@ public class RoomFileReader{
         int size = records.size();
 //        System.out.println(size);
         List<String> bufferArray;        
-        for (int i = 0; i < size ; i+=3) {
+
+        for (int i = 0; i < size ; i+=3) {// creation des salles ainsi que leurs items
             bufferArray = records.get(i);//lecture premier ligne: name, description, imageName
             String name = bufferArray.get(0);
             Room room = new Room(bufferArray.get(1));
@@ -58,11 +59,16 @@ public class RoomFileReader{
                 room.addItem(new Item(itemName, itemWeight));
                 
             }
-                     
 
-
+            rooms.put(name, room);
         }
 
+        for (ArrayList<String> exitsList : exitsStack) {// ajouts des exits 
+            System.out.println(exitsList);
+            Room src = rooms.get(exitsList.get(0));
+            Room dst = rooms.get(exitsList.get(2));
+            src.setExit(exitsList.get(1), dst);
+        }
         return rooms;
     }
 }
