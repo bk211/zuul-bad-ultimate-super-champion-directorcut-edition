@@ -7,10 +7,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-
 public class RoomFileReader{
     List<List<String>> records;
 
+    /**
+     * constructor for RFR
+     * @param fileName the name of the file that contain the RoomData
+     */
     public RoomFileReader(String fileName){
         records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -25,6 +28,11 @@ public class RoomFileReader{
             e.printStackTrace();
         }
     }
+
+    /**
+     * return a hashmap/dictionary that contain all the rooms, linked correctly to each others
+     * @return the dictionary that contain all the rooms
+     */
     HashMap<String,Room> ParseRooms(){
         HashMap<String,Room> rooms = new HashMap<String, Room>();
         ArrayList<ArrayList<String>> exitsStack = new ArrayList<ArrayList<String>>();
