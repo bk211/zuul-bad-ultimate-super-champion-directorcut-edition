@@ -329,7 +329,7 @@ public class GameModel extends Observable
                     look();
                     break;
                 case EAT:
-                    goRoom(command);
+                    eat();
                     break;
                 case TEST:
                     test_file(command);

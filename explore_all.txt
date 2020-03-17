@@ -1,10 +1,16 @@
 back
 look
+eat
 take
 take key
 drop
 drop key
 go east
+drop
+drop key
+look
+eat
+eat
 go south
 back
 go north

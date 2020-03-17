@@ -312,6 +312,7 @@ public void take(Command command)
     }
 \end{verbatim}
 pour ajouter les commandes c'est le même procédé que d'habitude 
+
 \section{7.33 / magic cookie}
 rajouter la commande eat et faire en sorte qu'elle fonctionne que quand y'a un item magic cookie et aussi qu'elle fanctionne pas avec take comme vu précédemment 
 \begin{verbatim}
@@ -328,6 +329,50 @@ rajouter la commande eat et faire en sorte qu'elle fonctionne que quand y'a un i
         }
     }
 \end{verbatim}
+
+
+\section{7.41.1}
+\quad Mettre à jour les fichiers de test, notamment celui qui doit tester le jeu le plus exhaustivement possible.
+2)explore\_all.txt , le joueur explore toutes les salles du jeu, test de back, test de drop/take valide / invalides, commandes invalides, tentative de eat, eat plusieur reprise de cookie
+
+\begin{verbatim}
+back
+look
+eat
+take
+take key
+drop
+drop key
+go east
+drop
+drop key
+look
+eat
+eat
+go south
+back
+go north
+go north
+go south
+go east
+go north
+back
+go south
+go south
+back
+back
+go east
+go south
+go south
+back
+go east
+go south
+not valid command
+foo bar
+go go
+
+\end{verbatim}
+
 \section{7.35 enums}
 ajout de la classe commandWord
 \begin{verbatim}
