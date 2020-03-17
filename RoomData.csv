@@ -1,6 +1,6 @@
-parking,in the parking,img/castle.gif
+parking,in the parking,img/road.jpeg
 east,aile_gauche
-pomme,Il y a une pomme par terre, 4.2
+key,there is a key on the ground, 4.2
 aile_gauche,in the left wing,img/courtyard.gif
 north,cargo1,south,dock1,up,hall
 magic_cookie,increase your weight capacity, 0.0
@@ -26,7 +26,7 @@ vestiaire,in the change room,img/hallway.gif
 west,rest,south,aile_droite
 NONE
 aile_droite,in the right wing,img/outside.gif
-north,vestiaire,west,hall,south,cuisine,east,dock2
+north,vestiaire,west,hall,east,cuisine,south,dock2
 NONE
 cuisine,in the kitchen,img/courtyard.gif
 west,aile_droite,south,escalier

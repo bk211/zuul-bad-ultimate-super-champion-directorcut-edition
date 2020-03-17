@@ -1,0 +1,28 @@
+back
+look
+take
+take key
+drop
+drop key
+go east
+go south
+back
+go north
+go north
+go south
+go east
+go north
+back
+go south
+go south
+back
+back
+go east
+go south
+go south
+back
+go east
+go south
+not valid command
+foo bar
+go go

@@ -1,0 +1,7 @@
+look
+take key
+go east
+go up
+go east
+go east
+go south

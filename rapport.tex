@@ -102,6 +102,54 @@ ainsi que ajout de Test dans commandWord et dans processCommand
         return true;
     } 
 \end{verbatim}
+
+\section{7.28.2}
+\quad Créer 2 fichiers de commandes : 1) parcours idéal pour gagner 2) exploration de toutes les possibilités du jeu \\
+1)ideal\_run.txt , le joueur prends la cle du parking et sort du jeu en allant vers les escaliers situé à l'autre bout de la salle
+\begin{verbatim}
+look
+take key
+go east
+go up
+go east
+go east
+go south
+\end{verbatim}
+1)explore\_all.txt , le joueur explore toutes les salles du jeu, test de back, commandes invalides
+\begin{verbatim}
+back
+look
+take
+take key
+drop
+drop key
+go east
+go south
+back
+go north
+go north
+go south
+go east
+go north
+back
+go south
+go south
+back
+back
+go east
+go south
+go south
+back
+go east
+go south
+not valid command
+foo bar
+go go
+
+\end{verbatim}
+
+
+
 \section{7.29 et 7.31}
 \quad ajout de classe player et ajout d'une array list pour la collecte des items  et ajout du champs name dans items ansi que le fichier csv contenant les informations sur les rooms,leur items et leur sorties 
 \begin{verbatim}
