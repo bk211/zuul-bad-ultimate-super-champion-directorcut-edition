@@ -33,7 +33,7 @@ public class GameView implements Observer
     public void printWelcome()
     {
         show("\n" + gameModel.getWelcomeString() + "\n");
-        show("Type 'help' if you need help.\n");
+        show("Type '"+ CommandWord.HELP +"' if you need help.\n");
         printLocationInfo();
         userInterface.showImage(gameModel.getCurrentRoom().getImageLinkString());
     }
