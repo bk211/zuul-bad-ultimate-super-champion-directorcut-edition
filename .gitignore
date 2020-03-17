@@ -12,3 +12,7 @@ material/*
 *.odt
 docprog/*
 docuser/*
+
+#tex files
+*.aux
+*.log
