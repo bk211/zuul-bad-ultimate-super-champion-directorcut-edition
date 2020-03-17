@@ -514,8 +514,9 @@ public enum CommandWord{
         return commandString;
     }
 }
-Ensuite le constructeur de CommandWords a été refait pour ignorer les changements de commandWord via une boucle foreach.
 \end{verbatim}
+Ensuite le constructeur de CommandWords a été refait pour ignorer les changements de commandWord via une boucle foreach.
+\begin{verbatim}
     public CommandWords()
     {
         validCommands = new HashMap<String, CommandWord>();
@@ -525,7 +526,7 @@ Ensuite le constructeur de CommandWords a été refait pour ignorer les changeme
             }
         }
     }
-\begin{verbatim}
+\end{verbatim}
 
 \section{7.41}
 \quad Dans zuul-with-enums-v2, pour changer le mot clé de la commande help, il suffit de changer HELP("help) par HELP("foo")\\
