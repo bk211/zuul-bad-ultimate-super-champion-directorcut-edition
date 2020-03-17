@@ -151,7 +151,7 @@ go go
 
 
 \section{7.29 et 7.31}
-\quad ajout de classe player et ajout d'une array list pour la collecte des items  et ajout du champs name dans items ansi que le fichier csv contenant les informations sur les rooms,leur items et leur sorties 
+\quad ajout de classe player et ajout d'une array list pour la collecte des items  et ajout du champs name dans items ansi que le fichier RoomData.csv contenant les informations sur les rooms,leur items et leur sorties 
 \begin{verbatim}
 import java.util.ArrayList;
 public class Player {
@@ -195,48 +195,48 @@ public class Player {
 }
 
 \end{verbatim}
-csv file
+Voici le fichier RoomData.csv
 \begin{verbatim}
-parking,in the parking,img/castle.gif
+parking,in the parking,img/road.jpeg
 east,aile_gauche
-pomme,Il y a une pomme par terre, 4.2
+key,there is a key on the ground, 4.2
 aile_gauche,in the left wing,img/courtyard.gif
 north,cargo1,south,dock1,up,hall
 magic_cookie,increase your weight capacity, 0.0
-cargo1,in the cargo1,NULL
+cargo1,in the cargo1,img/courtyard.gif
 north,cargo2,south,aile_gauche,east,rest
 NONE
-cargo2,in the cargo2,NULL
+cargo2,in the cargo2,img/hallway.gif
 south,cargo1
 pomme,Il y a une pomme par terre,0
-dock1,in the dock1,NULL
+dock1,in the dock1,img/dungeon.gif
 north,aile_gauche
 cle,Il y a une cle par terre, 1
-dock2,in the dock2,NULL
+dock2,in the dock2,img/outside.gif
 north,aile_droite
 NONE
-reactor,in the reactor room,NULL
+reactor,in the reactor room,img/throne-room.gif
 sud,rest
 NONE
-rest,in the rest room,NULL
+rest,in the rest room,img/stairs.gif
 north,reactor,west,cargo1,south,hall,east,vestiaire
 NONE
-vestiaire,in the change room,NULL
+vestiaire,in the change room,img/hallway.gif
 west,rest,south,aile_droite
 NONE
-aile_droite,in the right wing,NULL
-north,vestiaire,west,hall,south,cuisine,east,dock2
+aile_droite,in the right wing,img/outside.gif
+north,vestiaire,west,hall,east,cuisine,south,dock2
 NONE
-cuisine,in the kitchen,NULL
+cuisine,in the kitchen,img/courtyard.gif
 west,aile_droite,south,escalier
 NONE
-escalier,in the staires,NULL
+escalier,in the staires,img/dungeon.gif
 north,cuisine
 NONE
-hall,in the Hall,NULL
+hall,in the Hall,img/hallway.gif
 north,rest,west,aile_gauche,south,commandement,east,aile_droite,
 NONE
-commandement,in the head quarter,NULL
+commandement,in the head quarter,img/stairs.gif
 north,hall
 NONE
 \end{verbatim}
@@ -331,7 +331,7 @@ rajouter la commande eat et faire en sorte qu'elle fonctionne que quand y'a un i
 \end{verbatim}
 
 
-\section{7.41.1}
+\section{7.34.1}
 \quad Mettre à jour les fichiers de test, notamment celui qui doit tester le jeu le plus exhaustivement possible.
 2)explore\_all.txt , le joueur explore toutes les salles du jeu, test de back, test de drop/take valide / invalides, commandes invalides, tentative de eat, eat plusieur reprise de cookie
 
@@ -457,7 +457,7 @@ dans game model
                     look();
                     break;
                 case EAT:
-                    goRoom(command);
+                    eat(command);
                     break;
                 case TEST:
                     test_file(command);
@@ -485,5 +485,76 @@ dans game model
 \end{verbatim}
 
 
+\section{7.40}
+Faire les exercices 7.40(look) et 7.41(help) à l'aide du projet zuul-with-enums-v2.
+\\Add your own look command to zuul-with-enums-v2. Do you only need to change the CommandWord type?
+\quad Dans zuul-with-enums-v2, il suffit d'ajouter LOOK("look") dans les enus de la class CommandWord puis de modifier la methode processCommand
+ de la class Game pour avoir le bon comportement.
+\\
+Dans notre version, des changements ont eu lieu, tout d'abord une version plus élaboré de CommandWord comme le suggère le livre,
+\begin{verbatim}
+public enum CommandWord{    
+    // A value for each command word along with its
+    // corresponding user interface string.
+    GO("go"), QUIT("quit"), HELP("help"), LOOK("look"), EAT("eat"), BACK("back"),TEST("test"),TAKE("take"),DROP("drop"),MINE("mine"), UNKNOWN("?");
+
+    // The command string.
+    private String commandString;
+    /*** 
+     * Initialize with the corresponding command word.
+     * @param commandString The command string.
+    */
+    CommandWord(String commandString){
+        this.commandString = commandString;
+    }
+    /*** 
+     * @return The command word as a string.
+    */
+    public String toString(){
+        return commandString;
+    }
+}
+Ensuite le constructeur de CommandWords a été refait pour ignorer les changements de commandWord via une boucle foreach.
+\end{verbatim}
+    public CommandWords()
+    {
+        validCommands = new HashMap<String, CommandWord>();
+        for(CommandWord command : CommandWord.values()) {
+            if(command != CommandWord.UNKNOWN) {
+                validCommands.put(command.toString(), command);
+            }
+        }
+    }
+\begin{verbatim}
+
+\section{7.41}
+\quad Dans zuul-with-enums-v2, pour changer le mot clé de la commande help, il suffit de changer HELP("help) par HELP("foo")\\
+Aucun autre changement a été necessaire dans d'autre endroit du jeu.\\
+Par ailleurs, la methode printWelcome n'a pas eu de changement, pourtant il affiche bien "foo" comme la commande d'aide.
+\begin{verbatim}
+Welcome to the World of Zuul!
+World of Zuul is a new, incredibly boring adventure game.
+Type 'foo' if you need help.
+\end{verbatim}
+
+Dans notre version, la modification de commandWord ne suffit pas, car printWelcome() est codé en dure avec une chaine de characère,\\
+Pour y remédier, dans notre version, printWelcome est gérer par la class GameView, nous avons alors fait les même changement que dans zuul-with-enums-v2\\
+\begin{verbatim}
+    public void printWelcome()
+    {
+        show("\n" + gameModel.getWelcomeString() + "\n");
+        show("Type '"+ CommandWord.HELP +"' if you need help.\n");
+        printLocationInfo();
+        userInterface.showImage(gameModel.getCurrentRoom().getImageLinkString());
+    }
+\end{verbatim}
+Le message de bienvenue devient alors ainsi, avec "sos" notre nouveau mot clé pour afficher de l'aide.
+\begin{verbatim}
+Welcome to the world of Albator,
+You are a space traveler pirate wandering in the Milky way 
+in the search of great treasure and exciting adventure  
+Type 'sos' if you need help.
+\end{verbatim}
 
 \end{document}
+
