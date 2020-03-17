@@ -61,13 +61,14 @@ public class RoomFileReader{
             bufferArray = records.get(i+2);//lecture items
             if(!bufferArray.get(0).equals("NONE")){
                 
-                for (int k = 0; k < bufferArray.size(); k+=2) {        
+                for (int k = 0; k < bufferArray.size(); k+=3) {
                     String itemName = bufferArray.get(k);
-                    if(itemName == "NULL"){
-                        itemName = "No description avaible for this item";
+                    String itemDescription = bufferArray.get(k+1);
+                    if(itemDescription == "NULL"){
+                        itemDescription = "No description avaible for this item";
                     }
-                    double itemWeight = Double.parseDouble(bufferArray.get(k+1));
-                    room.addItem(new Item(itemName, itemWeight));
+                    double itemWeight = Double.parseDouble(bufferArray.get(k+2));
+                    room.addItem(new Item(itemName,itemDescription, itemWeight));
                 }            
             }
             

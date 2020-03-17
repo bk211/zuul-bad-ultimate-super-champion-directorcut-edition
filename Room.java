@@ -22,6 +22,8 @@ public class Room
     private HashMap<String, Room> exits;
     private ArrayList<Item> items;
 
+
+
     /**
      * Add the item i to the items collection
      * @param i the item that will be add to the items collection
@@ -140,6 +142,12 @@ public class Room
         return result;
     }
 
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
     /**
      * @return The description of the room.
      */

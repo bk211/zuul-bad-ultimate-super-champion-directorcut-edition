@@ -1,18 +1,18 @@
 parking,in the parking,img/castle.gif
 east,aile_gauche
-Il y a une pomme par terre, 4.2
+pomme,Il y a une pomme par terre, 4.2
 aile_gauche,in the left wing,img/courtyard.gif
 north,cargo1,south,dock1,up,hall
-NONE
+magic_cookie,increase your weight capacity, 0.0
 cargo1,in the cargo1,NULL
 north,cargo2,south,aile_gauche,east,rest
 NONE
 cargo2,in the cargo2,NULL
 south,cargo1
-Il y a une pomme par terre,0
+pomme,Il y a une pomme par terre,0
 dock1,in the dock1,NULL
 north,aile_gauche
-Il y a une cle par terre, 1
+cle,Il y a une cle par terre, 1
 dock2,in the dock2,NULL
 north,aile_droite
 NONE

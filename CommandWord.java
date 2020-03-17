@@ -1,0 +1,4 @@
+public enum CommandWord
+{
+    GO,QUIT,HELP,LOOK,EAT,BACK,TEST,TAKE,DROP,MINE,UNKNOWN;
+}

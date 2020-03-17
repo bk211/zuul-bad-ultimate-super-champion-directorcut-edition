@@ -8,20 +8,31 @@
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
+import java.util.HashMap;
 
 public class CommandWords
 {
-    // a constant array that holds all valid command words
-    private static final String[] validCommands = {
-        "go", "quit", "help","look", "eat", "back"
-    };
+
+    private HashMap<String, CommandWord> validCommands;
+
 
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords()
     {
-        // nothing to do at the moment...
+        validCommands = new HashMap<String, CommandWord>();
+        validCommands.put("go", CommandWord.GO);
+        validCommands.put("quit", CommandWord.QUIT);
+        validCommands.put("help", CommandWord.HELP);
+        validCommands.put("look", CommandWord.LOOK);
+        validCommands.put("eat",  CommandWord.EAT);
+        validCommands.put("back", CommandWord.BACK);
+        validCommands.put("test", CommandWord.TEST);
+        validCommands.put("take", CommandWord.TAKE);
+        validCommands.put("drop", CommandWord.DROP);
+        validCommands.put("mine", CommandWord.MINE);
+
     }
 
     /**
@@ -30,14 +41,20 @@ public class CommandWords
      * @return true if a given string is a valid command,
      * false if it isn't.
      */
+    public CommandWord getCommandWord(String commandWord)
+    {
+        CommandWord command = validCommands.get(commandWord);
+        if(command != null) {
+            return command;
+        }
+        else {
+            return CommandWord.UNKNOWN;
+        }
+    }
+
     public boolean isCommand(String aString)
     {
-        for(int i = 0; i < validCommands.length; i++) {
-            if(validCommands[i].equals(aString))
-                return true;
-        }
-        // if we get here, the string was not found in the commands
-        return false;
+        return validCommands.containsKey(aString);
     }
 
     /**
@@ -46,9 +63,16 @@ public class CommandWords
     */
     public String getCommandList(){
         String result = "";
-        for (String command : validCommands) {
+        for (String command : validCommands.keySet()) {
             result += command + " ";
         }
         return result;
+    }
+    public void showAll()
+    {
+        for(String command : validCommands.keySet()) {
+            System.out.print(command + "  ");
+        }
+        System.out.println();
     }
 }

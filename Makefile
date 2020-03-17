@@ -1,7 +1,7 @@
 CC= javac
 CCFLAGS = -Werror -Xlint:-path 
 
-Main.class:	Main.java Command.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
+Main.class:	Main.java Command.class Player.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
 	$(CC) $(CCFLAGS) Main.java
 
 Item.class:	Item.java
@@ -12,6 +12,8 @@ Command.class:	Command.java
 CommandWords.class:	CommandWords.java
 	$(CC) $(CCFLAGS) $<
 Game.class:	Game.java
+	$(CC) $(CCFLAGS) $<
+Player.class:	Player.java
 	$(CC) $(CCFLAGS) $<
 GameModel.class:	GameModel.java
 	$(CC) $(CCFLAGS) $<

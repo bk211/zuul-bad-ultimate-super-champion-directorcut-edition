@@ -1,4 +1,5 @@
 public class Item{
+    String name;
     String description;
     double weight;
     
@@ -18,6 +19,20 @@ public class Item{
     public Item(String des, double w){
         description = des;
         weight = w;
+    }
+
+    public Item(String name, String description, double weight) {
+        this.name = name;
+        this.description = description;
+        this.weight = weight;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
