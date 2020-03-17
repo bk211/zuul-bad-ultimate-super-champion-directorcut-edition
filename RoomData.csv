@@ -4,39 +4,39 @@ pomme,Il y a une pomme par terre, 4.2
 aile_gauche,in the left wing,img/courtyard.gif
 north,cargo1,south,dock1,up,hall
 magic_cookie,increase your weight capacity, 0.0
-cargo1,in the cargo1,NULL
+cargo1,in the cargo1,img/courtyard.gif
 north,cargo2,south,aile_gauche,east,rest
 NONE
-cargo2,in the cargo2,NULL
+cargo2,in the cargo2,img/hallway.gif
 south,cargo1
 pomme,Il y a une pomme par terre,0
-dock1,in the dock1,NULL
+dock1,in the dock1,img/dungeon.gif
 north,aile_gauche
 cle,Il y a une cle par terre, 1
-dock2,in the dock2,NULL
+dock2,in the dock2,img/outside.gif
 north,aile_droite
 NONE
-reactor,in the reactor room,NULL
+reactor,in the reactor room,img/throne-room.gif
 sud,rest
 NONE
-rest,in the rest room,NULL
+rest,in the rest room,img/stairs.gif
 north,reactor,west,cargo1,south,hall,east,vestiaire
 NONE
-vestiaire,in the change room,NULL
+vestiaire,in the change room,img/hallway.gif
 west,rest,south,aile_droite
 NONE
-aile_droite,in the right wing,NULL
+aile_droite,in the right wing,img/outside.gif
 north,vestiaire,west,hall,south,cuisine,east,dock2
 NONE
-cuisine,in the kitchen,NULL
+cuisine,in the kitchen,img/courtyard.gif
 west,aile_droite,south,escalier
 NONE
-escalier,in the staires,NULL
+escalier,in the staires,img/dungeon.gif
 north,cuisine
 NONE
-hall,in the Hall,NULL
+hall,in the Hall,img/hallway.gif
 north,rest,west,aile_gauche,south,commandement,east,aile_droite,
 NONE
-commandement,in the head quarter,NULL
+commandement,in the head quarter,img/stairs.gif
 north,hall
 NONE
