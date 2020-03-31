@@ -24,7 +24,6 @@ public class GameView implements Observer
         this.gameModel = gameModel;
         userInterface = new UserInterface();
         userInterface.addGameModel(gameModel);
-
     }
     
     /**
@@ -88,6 +87,7 @@ public class GameView implements Observer
     public void update(Observable o, Object arg)
     {
         printLocationInfo();
+        gameModel.timeOut();
         //String imageLink = gameModel.getImageLinkString();
         //debug line;
         //System.out.println(">>>" + imageLink);

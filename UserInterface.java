@@ -144,6 +144,7 @@ public class UserInterface implements ActionListener
         }else if(e.getSource() == entryField){
             processCommand();
         }
+
     }
 
     /**
@@ -154,7 +155,7 @@ public class UserInterface implements ActionListener
     {
         String input = entryField.getText();
         entryField.setText("");
-        
         gameModel.interpretCommandString(input);
+
     }
 }

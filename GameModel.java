@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 public class GameModel extends Observable
 {
     
-    private Room currentRoom;
+
     private Player p1;
     private Parser parser;
     private HashMap<String,Room> rooms;
@@ -32,6 +32,8 @@ public class GameModel extends Observable
         createRooms();
         this.parser = new Parser();
     }
+
+
 
     /**
      * Set gm as gameView
@@ -114,7 +116,16 @@ public class GameModel extends Observable
         +"You are a space traveler pirate wandering in the Milky way \n"
         +"in the search of great treasure and exciting adventure  ";
     }
-    
+
+
+    public void timeOut(){
+        if(pastRooms.size()==20) {
+            gameView.show("Time ouuuuuuuutt\n");
+            interpretCommandString("quit");
+        }
+    }
+
+
     /**
      * return the goobye String
      * @return goodbye String
@@ -298,7 +309,6 @@ public class GameModel extends Observable
     public void play() 
     {            
         gameView.printWelcome();
-//        gameView.update(o, arg);
     }
 
 
@@ -413,5 +423,7 @@ public class GameModel extends Observable
             }
         }
     }
+
+
 
 }

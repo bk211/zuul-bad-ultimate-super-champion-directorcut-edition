@@ -32,6 +32,7 @@ public class Game
         gameView = new GameView(gameModel);
         gameModel.addObserver(gameView);
         gameModel.addGameView(gameView);
+
     }
 
 
