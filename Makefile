@@ -1,7 +1,7 @@
 CC= javac
 CCFLAGS = -Werror -Xlint:-deprecation
 
-Main.class:	Main.java Command.class Player.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
+Main.class:	Main.java Command.class Player.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class RoomFileReader.class Beamer.class Door.class
 	$(CC) $(CCFLAGS) Main.java
 
 Item.class:	Item.java
@@ -33,7 +33,7 @@ Door.class:	Door.java
 	$(CC) $(CCFLAGS) $<
 
 
-run:
+run: Main.class
 	java Main
 
 clean:	

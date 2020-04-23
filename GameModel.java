@@ -194,8 +194,13 @@ public class GameModel extends Observable
         if (nextRoom == null) {
             gameView.show("There is no door!\n");
         }
-        else {
+        else if(p1.getCurrentRoom().isOpen(direction)){ 
+            gameView.show("The door is open!\n");    
+        
             goRoom(nextRoom);
+        }
+        else {
+            gameView.show("The door is locked!\n");    
         }
     }
     public void test_file(Command command)

@@ -21,7 +21,7 @@ public class Room
     private String imageLink;
     private HashMap<String, Room> exits;
     private ArrayList<Item> items;
-
+    private ArrayList<Door> doors;
 
 
     /**
@@ -44,6 +44,7 @@ public class Room
         exits = new HashMap<String, Room>();
         imageLink = null;
         items = new ArrayList<Item>();
+        doors = new ArrayList<Door>();
     }
 
 
@@ -154,6 +155,29 @@ public class Room
     public String getDescription()
     {
         return description;
+    }
+
+    public void setDoor(String exitName,Boolean v){
+        doors.add(new Door(exitName, v));
+    }
+    
+    public Door getDoor(String name){
+        for(Door door : doors){
+            if(door.getExitName().equals(name)){
+                return door;
+            }
+        }
+        return null;
+    }
+
+    public boolean isOpen(String name){
+        Door d = getDoor(name);
+        if(d != null){
+            return getDoor(name).getStatus();
+        }
+        else{
+            return true;
+        }
     }
 
 }

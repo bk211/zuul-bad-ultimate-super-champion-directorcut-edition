@@ -1,42 +1,42 @@
 parking,in the parking,img/road.jpeg
-east,aile_gauche
+east,false,aile_gauche
 key,can open a gate, 4.2
 aile_gauche,in the left wing,img/courtyard.gif
-north,cargo1,south,dock1,up,hall
+north,true,cargo1,south,true,dock1,up,true,hall
 magic_cookie,increase your weight capacity, 0.0
 cargo1,in the cargo1,img/courtyard.gif
-north,cargo2,south,aile_gauche,east,rest
+north,true,cargo2,south,true,aile_gauche,east,false,rest
 beamer,allow you teleport back to the marked place,1.0
 cargo2,in the cargo2,img/hallway.gif
-south,cargo1
+south,true,cargo1
 pomme,Il y a une pomme par terre,0
 dock1,in the dock1,img/dungeon.gif
-north,aile_gauche
+north,true,aile_gauche
 cle,Il y a une cle par terre, 1
 dock2,in the dock2,img/outside.gif
-north,aile_droite
+north,true,aile_droite
 NONE
 reactor,in the reactor room,img/throne-room.gif
-sud,rest
+south,true,rest
 NONE
 rest,in the rest room,img/stairs.gif
-north,reactor,west,cargo1,south,hall,east,vestiaire
+north,true,reactor,west,true,cargo1,south,true,hall,east,false,vestiaire
 NONE
 vestiaire,in the change room,img/hallway.gif
-south,aile_droite
+south,true,aile_droite
 NONE
 aile_droite,in the right wing,img/outside.gif
-west,hall,east,cuisine,south,dock2
+west,true,hall,east,false,cuisine,south,true,dock2
 NONE
 cuisine,in the kitchen,img/courtyard.gif
-west,aile_droite,south,escalier
+west,true,aile_droite,south,true,escalier
 NONE
 escalier,in the staires,img/dungeon.gif
-north,cuisine
+north,true,cuisine
 NONE
 hall,in the Hall,img/hallway.gif
-north,rest,west,aile_gauche,south,commandement,east,aile_droite,
+north,true,rest,west,true,aile_gauche,south,true,commandement,east,false,aile_droite,
 NONE
 commandement,in the head quarter,img/stairs.gif
-north,hall
+north,true,hall
 NONE
