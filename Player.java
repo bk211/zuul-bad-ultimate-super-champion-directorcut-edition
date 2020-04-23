@@ -4,7 +4,8 @@ public class Player {
     private Room currentRoom;
     private  double weight ;
     private ArrayList<Item> items;
-    private ArrayList<Equipment> equipments;
+    private Beamer beamer;
+   // private ArrayList<Equipment> equipments;
 
     public Player(String name, Room currentRoom) {
         this.name = name;
@@ -34,5 +35,9 @@ public class Player {
 
     public void setWeight(double weight) {
         this.weight = weight;
+    }
+
+    public void setBeamer(Item b){
+        this.beamer = new Beamer(b);
     }
 }

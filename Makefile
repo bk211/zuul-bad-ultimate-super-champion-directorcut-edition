@@ -1,5 +1,5 @@
 CC= javac
-CCFLAGS = -Werror -Xlint:-path 
+CCFLAGS = -Werror -Xlint:-deprecation
 
 Main.class:	Main.java Command.class Player.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
 	$(CC) $(CCFLAGS) Main.java

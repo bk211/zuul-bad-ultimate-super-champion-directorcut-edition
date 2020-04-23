@@ -351,6 +351,9 @@ public class GameModel extends Observable
                 case MINE:
                     mine();
                     break;
+                case EQUIP:
+                    equip(command);
+                    break;
                 case QUIT:
                     if (confirmQuit(command) == true){
                         gameView.disable();
@@ -423,5 +426,29 @@ public class GameModel extends Observable
     }
 
 
+    private void equip(Command command){        
+        if(!command.hasSecondWord()) {
+        // if there is no second word, we don't know what to equip...
+            gameView.show("equip what ?\n");
+            return;
+        }
+        String itemName = command.getSecondWord();
+        ArrayList<Item> roomItem = p1.getCurrentRoom().getItems();
+        Boolean found = false; 
+        for(int i=0;i<roomItem.size();i++){
+            if(roomItem.get(i).getName().equals(itemName) && itemName.equals("beamer")) {
+                p1.setBeamer(roomItem.get(i));
+                found = true;
 
+                p1.getCurrentRoom().getItems().remove(i);
+                p1.getCurrentRoom().setItems(p1.getCurrentRoom().getItems());
+            }
+        }
+
+        if(found){
+            gameView.show("Equip succes \n");
+        }else{
+            gameView.show("Equipment not found\n");    
+        }
+    }
 }
