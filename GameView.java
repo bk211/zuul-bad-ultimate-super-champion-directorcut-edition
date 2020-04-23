@@ -88,6 +88,7 @@ public class GameView implements Observer
     {
         printLocationInfo();
         gameModel.timeOut();
+
         //String imageLink = gameModel.getImageLinkString();
         //debug line;
         //System.out.println(">>>" + imageLink);

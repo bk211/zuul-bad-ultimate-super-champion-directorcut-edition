@@ -3,6 +3,7 @@ import java.util.Stack;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -22,6 +23,10 @@ public class GameModel extends Observable
     private Stack<Room> pastRooms;
     private GameView gameView;
     private double max_weight = 6.0;
+    private int cpt = 0;
+    boolean used=false;
+    boolean open=false;
+    private Room checkpoint;
 
     /**
      * default constructor for this class
@@ -33,7 +38,13 @@ public class GameModel extends Observable
         this.parser = new Parser();
     }
 
+    public Player getP1() {
+        return p1;
+    }
 
+    public int getPastRoomsSize() {
+        return pastRooms.size();
+    }
 
     /**
      * Set gm as gameView
@@ -75,7 +86,6 @@ public class GameModel extends Observable
         if(p1.getCurrentRoom().getImageLinkString() != null){
             gameView.showImage(p1.getCurrentRoom().getImageLinkString());
         }
-
         setChanged();
         notifyObservers();
     }
@@ -189,13 +199,34 @@ public class GameModel extends Observable
         String direction = command.getSecondWord();
 
         // Try to leave current room.
+        Room currentRoom = p1.getCurrentRoom();
         Room nextRoom = p1.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             gameView.show("There is no door!\n");
         }
         else {
-            goRoom(nextRoom);
+            if (currentRoom.getStateExit(nextRoom) == 0||currentRoom.getStateExit(nextRoom) == 1 ) {
+                goRoom(nextRoom);
+                if (beam1()) {
+                    cpt++;
+                    if (cpt == 1) {
+                        checkpoint = nextRoom;
+                        gameView.show("beamer charged you can use it in the next room");
+                    } else if (cpt >= 2) {
+                        gameView.show("beamer can be used\n");
+                        used = true;
+                    }
+                }
+
+            }
+            else {
+                if(!key()) {
+                    gameView.show("\nlooocked rooom right here find a key to open it\n");
+                }else{
+                    goRoom(nextRoom);
+                }
+            }
         }
     }
     public void test_file(Command command)
@@ -234,11 +265,17 @@ public class GameModel extends Observable
                 }
 
                 gameView.show("i took the " + itemName+ "\n");
+
+
+
+
                 ArrayList<Item> newStateOfList  = p1.getItems();
                 newStateOfList.add(roomItem.get(i));
                 double total_weight = p1.getWeight() + roomItem.get(i).getWeight();
                 p1.setWeight(total_weight);
                 p1.setItems(newStateOfList);
+
+
 
 
                 ArrayList<Item> roomListItems  = p1.getCurrentRoom().getItems();
@@ -300,7 +337,7 @@ public class GameModel extends Observable
         //debug line>>
         //System.out.println(">"+command.getSecondWord()+"<");
         processCommand(command);
-        
+
     }
 
     /**
@@ -310,6 +347,7 @@ public class GameModel extends Observable
     {            
         gameView.printWelcome();
     }
+
 
 
     /**
@@ -324,7 +362,10 @@ public class GameModel extends Observable
                 gameView.show("I don't know what you mean...\n");
                 return false;
             }
+
             CommandWord commandWord = command.getCommandWord();
+
+
             switch (commandWord){
                 case HELP:
                     gameView.printHelp();
@@ -353,6 +394,17 @@ public class GameModel extends Observable
                 case MINE:
                     mine();
                     break;
+                case BEAM:
+                    if(used) {
+                        goBack(checkpoint);
+                        gameView.show("beamer used\n");
+                        used=false;
+                        cpt=0;
+                    }
+                    else
+                        gameView.show("beamer uncharged\n");
+                    break;
+
                 case QUIT:
                     if (confirmQuit(command) == true){
                         gameView.disable();
@@ -380,8 +432,30 @@ public class GameModel extends Observable
         }else{
             // la commande est valide
             // Try to leave current room.
-            Room nextRoom = pastRooms.pop();
-            goBack(nextRoom);
+
+            Room pastRoom = pastRooms.pop();
+            Room currentRoom = p1.getCurrentRoom();
+            if(pastRoom.getStateExit(currentRoom)==0) {
+                goBack(pastRoom);
+                if(beam1()){
+                    cpt++;
+                    if(cpt==1) {
+                        checkpoint=pastRoom;
+                        gameView.show("beamer charged you can use it in the next room");
+                    }else if(cpt>=2){
+                        gameView.show("beamer can be used\n");
+                        used=true;
+                    }
+                }
+            }
+            else {
+                if(!key()) {
+                    gameView.show("\nyou don't have a key to back to this room use look to find a key \n");
+                }else{
+                    gameView.show("\nyou opened the door \n");
+                    goBack(pastRoom);
+                }
+            }
         }
     }
 
@@ -412,7 +486,6 @@ public class GameModel extends Observable
     }
 
     private void eat(){
-        Item s = new Item("magic_cookie","increase your weight capacity", 0.0);
         for(int i=0;i<p1.getCurrentRoom().getItems().size();i++) {
             if (p1.getCurrentRoom().getItems().get(i).getName().equals("magic_cookie")) {
                 gameView.show("magic cookie eaaten \n");
@@ -422,6 +495,26 @@ public class GameModel extends Observable
                 gameView.show("noooo magic cookie \n ");
             }
         }
+    }
+
+
+
+    private boolean beam1(){
+        for(int i=0;i<p1.getItems().size();i++){
+            if(p1.getItems().get(i).getName().equals("beamer")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean key(){
+        for(int i=0;i<p1.getItems().size();i++){
+            if(p1.getItems().get(i).getName().equals("cle")){
+                return true;
+            }
+        }
+        return false;
     }
 
 

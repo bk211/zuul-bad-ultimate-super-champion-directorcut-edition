@@ -6,11 +6,12 @@ take key
 drop
 drop key
 go east
+take key
+go east
 drop
 drop key
+take beamer
 look
-eat
-eat
 go south
 back
 go north
@@ -18,7 +19,6 @@ go north
 go south
 go east
 go north
-back
 go south
 go south
 back
@@ -29,6 +29,5 @@ go south
 back
 go east
 go south
-not valid command
-foo bar
-go go
+beam
+
