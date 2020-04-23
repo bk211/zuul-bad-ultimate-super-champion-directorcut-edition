@@ -354,6 +354,15 @@ public class GameModel extends Observable
                 case EQUIP:
                     equip(command);
                     break;
+                case CHARGE:
+                    charge();
+                    break;
+                case FIRE:
+                    fire();
+                    break;
+                case TELEPORT:
+                    teleport();
+                    break;
                 case QUIT:
                     if (confirmQuit(command) == true){
                         gameView.disable();
@@ -451,4 +460,29 @@ public class GameModel extends Observable
             gameView.show("Equipment not found\n");    
         }
     }
+
+    private void charge(){
+        if(p1.charge()){
+            gameView.show("charge succes\n");
+        }else{
+            gameView.show("charge failed\n");    
+        }
+    }
+    private void fire(){
+        if(p1.fire()){
+            gameView.show("fire succes\n");
+            p1.setBeamerLocation(p1.getCurrentRoom());;
+        }else{
+            gameView.show("fire failed\n");    
+        }
+    }
+    private void teleport(){
+        Room targetRoom = p1.getBeamerRoom();
+        if(targetRoom != null){//if valide fired beamer
+            goRoom(targetRoom);
+        }else{
+            gameView.show("Beamer location not found, please fire the beamer\n");
+        }
+    }
+
 }

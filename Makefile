@@ -27,6 +27,10 @@ UserInterface.class:	UserInterface.java
 	$(CC) $(CCFLAGS) $<
 RoomFileReader.class:	RoomFileReader.java
 	$(CC) $(CCFLAGS) $<
+Beamer.class:	Beamer.java
+	$(CC) $(CCFLAGS) $<
+Door.class:	Door.java
+	$(CC) $(CCFLAGS) $<
 
 
 run:
