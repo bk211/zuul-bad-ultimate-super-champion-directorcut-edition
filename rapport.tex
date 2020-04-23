@@ -44,6 +44,28 @@ Au lieu d'utiliser le temps on compte le nombre de rooms
     }
     
 \end{verbatim}
+\section{7.43}
+Il est relativement facile d'implémenter cette fonctionnalité, en effet, depuis notre fichier \textbf{RoomData.csv}, chaque 
+salle de jeu possède l'information de sortie, vous pouvez le voir comme un graph orienté.\\
+Par exemple, nous pouvont rendre la salle vestiaire comme une salle couloir à sens unique, vous pouvez acceder 
+à la salle vestiaire via la porte de la salle de repos, mais la salle de vestiaire n'a qu'une seul porte qui mène à l'aile droite,
+enfin l'aile droite ne possède pas de porte qui permet d'y retourner.  
+\begin{verbatim}
+    vestiaire,in the change room,img/hallway.gif
+    south,aile_droite
+    NONE
+    aile_droite,in the right wing,img/outside.gif
+    west,hall,east,cuisine,south,dock2
+    NONE
+\end{verbatim}
+
+\section{7.44 beamer}
+Pour cette fonctionnalité, j'ai decidé d'implémenter tout d'abord beamer 
+\begin{verbatim}
+cargo1,in the cargo1,img/courtyard.gif
+north,cargo2,south,aile_gauche,east,rest
+beamer,there is a beamer on the ground,1.0
+\end{verbatim}
 
 \end{document}
 

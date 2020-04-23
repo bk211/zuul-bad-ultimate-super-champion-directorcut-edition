@@ -232,14 +232,12 @@ public class GameModel extends Observable
                     gameView.show("it's enough for me ?\n");
                     return;
                 }
-
                 gameView.show("i took the " + itemName+ "\n");
                 ArrayList<Item> newStateOfList  = p1.getItems();
                 newStateOfList.add(roomItem.get(i));
                 double total_weight = p1.getWeight() + roomItem.get(i).getWeight();
                 p1.setWeight(total_weight);
                 p1.setItems(newStateOfList);
-
 
                 ArrayList<Item> roomListItems  = p1.getCurrentRoom().getItems();
                 roomListItems.remove(i);

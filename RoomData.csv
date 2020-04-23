@@ -1,12 +1,12 @@
 parking,in the parking,img/road.jpeg
 east,aile_gauche
-key,there is a key on the ground, 4.2
+key,can open a gate, 4.2
 aile_gauche,in the left wing,img/courtyard.gif
 north,cargo1,south,dock1,up,hall
 magic_cookie,increase your weight capacity, 0.0
 cargo1,in the cargo1,img/courtyard.gif
 north,cargo2,south,aile_gauche,east,rest
-NONE
+beamer,allow you teleport back to the marked place,1.0
 cargo2,in the cargo2,img/hallway.gif
 south,cargo1
 pomme,Il y a une pomme par terre,0
@@ -23,10 +23,10 @@ rest,in the rest room,img/stairs.gif
 north,reactor,west,cargo1,south,hall,east,vestiaire
 NONE
 vestiaire,in the change room,img/hallway.gif
-west,rest,south,aile_droite
+south,aile_droite
 NONE
 aile_droite,in the right wing,img/outside.gif
-north,vestiaire,west,hall,east,cuisine,south,dock2
+west,hall,east,cuisine,south,dock2
 NONE
 cuisine,in the kitchen,img/courtyard.gif
 west,aile_droite,south,escalier
