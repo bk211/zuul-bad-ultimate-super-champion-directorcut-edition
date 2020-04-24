@@ -510,7 +510,7 @@ public class GameModel extends Observable
 
     private boolean key(){
         for(int i=0;i<p1.getItems().size();i++){
-            if(p1.getItems().get(i).getName().equals("cle")){
+            if(p1.getItems().get(i).getName().equals("key")){
                 return true;
             }
         }

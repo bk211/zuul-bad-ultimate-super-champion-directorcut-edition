@@ -50,11 +50,12 @@ public class RoomFileReader{
             } 
             bufferArray = records.get(i+1);//lecture second ligne: exits
             
-            for (int j = 0; j < bufferArray.size(); j+=2) {
+            for (int j = 0; j < bufferArray.size(); j+=3) {
                 ArrayList<String> bufferExits = new ArrayList<String>();
                 bufferExits.add(name);
                 bufferExits.add(bufferArray.get(j));
                 bufferExits.add(bufferArray.get(j+1));
+                bufferExits.add(bufferArray.get(j+2));
                 exitsStack.add(bufferExits);
             }
 
@@ -80,11 +81,12 @@ public class RoomFileReader{
 
 
         for (ArrayList<String> exitsList : exitsStack) {// ajouts des exits 
-            //System.out.println(exitsList);
+          //  System.out.println(exitsList);
 
             Room src = rooms.get(exitsList.get(0));
             Room dst = rooms.get(exitsList.get(2));
             src.setExit(exitsList.get(1), dst);
+            src.setExitsState(dst,Integer.parseInt(exitsList.get(3)));
         }
         return rooms;
     }

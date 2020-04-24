@@ -8,12 +8,12 @@
 \begin{document}
 \begin{center}
 \begin{huge}
-\textit{\textbf{RÉALISATION D'APPLICATION (2020)}}
+\textit{\textbf{TDSI (2020)}}
 \end{huge}
 \end{center}
 \begin{center}
 \begin{LARGE}
-\textit{\textbf{Itération 4}}
+\textit{\textbf{image editor}}
 \end{LARGE}
 \end{center}
 \textit{}
@@ -21,29 +21,60 @@
 \begin{center}
 \begin{flushleft}
 \begin{Large}
-\textbf{\textit{Groupe 2}}
+\textbf{\textit{Amarouche Lies}}
 \end{Large}
 \end{flushleft}
 \end{center}
 \begin{center}
-03 D\'ECEMBRE 2018
+13 AVRIL 2020
 \end{center}
+\section{Introduction}
+	j'ai fais un éditeur d'images qui comprends plusieurs algorithmes vu dans le cours, j'ai essayé de les mettre en valeur dans cette application qui fais en sorte de charger une image et de faire de modifications dessus et de la sauvegarder.
+\section{composants}
+ j'ai essayé de mettre le maximum d'algorithmes dans ce programme que ça sois des algorithmes qu'on a déjà vu brièvement que j'ai approfondi ou bien d'autres algorithmes que j'ai trouvé intéressent .
 
-\section{7.42 TIME OUT}
-\subsection{7.42.0}
-On appel la fonction dans la classe GameView  dans la methode update
-on code la methode dans GameModel
-Au lieu d'utiliser le temps on compte le nombre de rooms
+\begin{itemize}
+\item grayscale
+\item negatif
+\item flip
+\end{itemize}
+des fonction pour sauvegarder  et charger une image
+\begin{itemize}
+\item load
+\item save
+\end{itemize}
+des traitements dynamique qu'on peut ajuster grâce à un slider comme
+\begin{itemize}
+\item contrast
+\item luminosité 
+\item binary(qui dépend du seuil qu'on peut contrôler )
+\item rotation
+\item zoom
+\end{itemize}
+des filtres pour le lissage 
+ 
+\begin{itemize}
+\item moyenneur
+\item gaussian
+\item median
+\end{itemize}
+des filtres pour le bruitage grâce au bouton noising
+\begin{itemize}
+\item poivre et sel
+\end{itemize}
+des filtres pour la détection de contours 
+\begin{itemize}
+\item gradient module
+\item sobel
+\item prewitt
+\item laplace
+\end{itemize}
+
+\section{sources}
 \begin{verbatim}
-
-    public void timeOut(){
-        if(pastRooms.size()==20) {
-            gameView.show("Time ouuuuuuuutt\n");
-            interpretCommandString("quit");
-        }
-    }
-    
+http://marlicot.free.fr/image/scilab/IMAGE%20ET%20SCILAB.pdf
 \end{verbatim}
+
 
 \end{document}
 

@@ -143,6 +143,8 @@ public class UserInterface implements ActionListener
             gameModel.interpretCommandString("quit");
         }else if(e.getSource() == entryField){
             processCommand();
+
+
         }
 
     }
