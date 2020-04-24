@@ -14,7 +14,7 @@ public class CommandWords
 {
 
     private HashMap<String, CommandWord> validCommands;
-
+    private HashMap<String, Command> commands;
 
     /**
      * Constructor - initialise the command words.
@@ -27,12 +27,26 @@ public class CommandWords
                 validCommands.put(command.toString(), command);
             }
         }
+
+        commands = new HashMap<String, Command>();
+        commands.put("go", new GoCommand());
+        commands.put("quit", new QuitCommand());
+        commands.put("sos", new HelpCommand());
+        commands.put("look", new LookCommand());
+        commands.put("eat", new EatCommand());
+        commands.put("back", new BackCommand());
+        commands.put("test", new TestCommand());
+        commands.put("take", new TakeCommand());
+        commands.put("drop", new DropCommand());
+        commands.put("mine", new MineCommand());
+        commands.put("beam", new BeamCommand());
     }
 
     /**
      * Check whether a given String is a valid command word. 
      * @param aString the given String
-     * @return true if a given string is a valid command,
+     * @return true if a given string is a valid command
+     * 
      * false if it isn't.
      */
     public CommandWord getCommandWord(String commandWord)
@@ -62,11 +76,22 @@ public class CommandWords
         }
         return result;
     }
+    
+    //to be delete
     public void showAll()
     {
         for(String command : validCommands.keySet()) {
             System.out.print(command + "  ");
         }
         System.out.println();
+    }
+
+        /**
+     * Given a command word, find and return the matching command object.
+     * Return null if there is no command with this name.
+     */
+    public Command get(String word)
+    {
+        return (Command)commands.get(word);
     }
 }

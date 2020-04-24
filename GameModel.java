@@ -1,11 +1,7 @@
 import java.util.Observable;
 import java.util.Stack;
 import java.util.HashMap;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.io.File;
-import java.io.FileNotFoundException;
+//import java.util.Iterator;
 
 /**
  * GameModel represents the model of the game. This 
@@ -15,19 +11,14 @@ import java.io.FileNotFoundException;
  */
 public class GameModel extends Observable
 {
-    
-
     private Player p1;
     private Parser parser;
     private HashMap<String,Room> rooms;
     private Stack<Room> pastRooms;
     private GameView gameView;
     private TransporterRoom tr ;
-    private double max_weight = 6.0;
-    private int cpt = 0;
-    boolean used=false;
-    boolean open=false;
-    private Room checkpoint;
+
+
 
     /**
      * default constructor for this class
@@ -76,36 +67,9 @@ public class GameModel extends Observable
      */
 
 
-
-    /**
-     * go to the next room, also change the picture of the display,
-     * @param nextRoom the room that the player will go to
-     */
-    public void goRoom(Room nextRoom)
-    {
-        pastRooms.add(p1.getCurrentRoom());
-        p1.setCurrentRoom(nextRoom);
-        if(p1.getCurrentRoom().getImageLinkString() != null){
-            gameView.showImage(p1.getCurrentRoom().getImageLinkString());
-        }
+    public void notifyChange(){
         setChanged();
-        notifyObservers();
-    }
-
-    /**
-     * go to the last visited room, also change the picture of the display
-     * @param lastRoom the last visited room
-     */
-    
-    public void goBack(Room lastRoom)
-    {
-
-        p1.setCurrentRoom(lastRoom);
-        if(p1.getCurrentRoom().getImageLinkString() != null){
-            gameView.showImage(p1.getCurrentRoom().getImageLinkString());
-        }
-        setChanged();
-        notifyObservers();
+        notifyObservers();    
     }
 
     /**
@@ -135,6 +99,14 @@ public class GameModel extends Observable
             gameView.show("Time ouuuuuuuutt\n");
             interpretCommandString("quit");
         }
+    }
+
+    public void addPastRoom(Room r){
+        pastRooms.add(r);
+    }
+
+    public Stack<Room> getPastRooms(){
+        return pastRooms;
     }
 
 
@@ -185,154 +157,6 @@ public class GameModel extends Observable
         return parser.showCommands();
     }
     
-    /** 
-     * Try to go to one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     * @param command the input direction command
-     */
-    public void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            gameView.show("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room currentRoom = p1.getCurrentRoom();
-
-
-
-            Room nextRoom = p1.getCurrentRoom().getExit(direction);
-
-        if (nextRoom == null) {
-            gameView.show("There is no door!\n");
-        }
-        else {
-            if (currentRoom.getStateExit(nextRoom) == 0||currentRoom.getStateExit(nextRoom) == 1 ) {
-                goRoom(nextRoom);
-                if (beam1()) {
-                    cpt++;
-                    if (cpt == 1) {
-                        checkpoint = nextRoom;
-                        gameView.show("beamer charged you can use it in the next room");
-                    } else if (cpt >= 2) {
-                        gameView.show("beamer can be used\n");
-                        used = true;
-                    }
-                }
-
-            }
-            else {
-                if(!key()) {
-                    gameView.show("\nlooocked rooom right here find a key to open it\n");
-                }else{
-                    goRoom(nextRoom);
-                }
-            }
-        }
-    }
-    public void test_file(Command command)
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            gameView.show("test what ?");
-            return;
-        }
-        String file = command.getSecondWord();
-        try {
-            Scanner scanner = new Scanner(new File(file));
-            while (scanner.hasNextLine()) {
-                interpretCommandString(scanner.nextLine());
-            }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void take(Command command)
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            gameView.show("take what ?\n");
-            return;
-        }
-        String itemName = command.getSecondWord();
-        ArrayList<Item> roomItem = p1.getCurrentRoom().getItems();
-        for(int i=0;i<roomItem.size();i++){
-            if(roomItem.get(i).getName().equals(itemName) && !itemName.equals("magic_cookie")) {
-                if(p1.getWeight()>max_weight || p1.getItems().size() > 5) {
-                    gameView.show("it's enough for me ?\n");
-                    return;
-                }
-
-                gameView.show("i took the " + itemName+ "\n");
-
-
-
-
-                ArrayList<Item> newStateOfList  = p1.getItems();
-                newStateOfList.add(roomItem.get(i));
-                double total_weight = p1.getWeight() + roomItem.get(i).getWeight();
-                p1.setWeight(total_weight);
-                p1.setItems(newStateOfList);
-
-
-
-
-                ArrayList<Item> roomListItems  = p1.getCurrentRoom().getItems();
-                roomListItems.remove(i);
-                p1.getCurrentRoom().setItems(roomListItems);
-
-
-
-            }
-            else
-                gameView.show("there is no item who have this name in this room \n");
-        }
-    }
-    public void drop(Command command)
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            gameView.show("drop what ? \n");
-            return;
-        }
-        String itemName = command.getSecondWord();
-        ArrayList<Item> pItem = p1.getItems();
-        for(int i=0;i<pItem.size();i++){
-            if(pItem.get(i).getName().equals(itemName)) {
-
-                gameView.show("i droped the " + itemName +"\n");
-
-                ArrayList<Item> roomListItems  = p1.getCurrentRoom().getItems();
-                roomListItems.add(pItem.get(i));
-                p1.getCurrentRoom().setItems(roomListItems);
-
-                double total_weight = p1.getWeight() - pItem.get(i).getWeight();
-                p1.setWeight(total_weight);
-
-                ArrayList<Item> newStateOfList  = p1.getItems();
-                newStateOfList.remove(i);
-                p1.setItems(newStateOfList);
-
-
-            }
-            else
-                gameView.show("i already don't have this item \n");
-        }
-    }
-    public void mine(){
-        if(p1.getItems().size()==0)
-            gameView.show("i am poor i only have \n");
-        for(Item i:p1.getItems())
-            gameView.show(i.getName() + "\n");
-        gameView.show(Double.toString(p1.getWeight()) + "\n");
-    }
-
     /**
      * Interpret the input String as a command and process it
      * @param userInput the String send by the user
@@ -360,167 +184,28 @@ public class GameModel extends Observable
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-        private boolean processCommand(Command command)
-        {
+    private boolean processCommand(Command command)
+    {
 
-            if(command.isUnknown()) {
+            if(command == null){
                 gameView.show("I don't know what you mean...\n");
                 return false;
+            }else{
+                command.execute(p1, this ,gameView);
             }
 
-            CommandWord commandWord = command.getCommandWord();
-
-
-            switch (commandWord){
-                case HELP:
-                    gameView.printHelp();
-                    break;
-                case GO:
-                    goRoom(command);
-                    break;
-                case BACK:
-                    goBack(command);
-                    break;
-                case LOOK:
-                    look();
-                    break;
-                case EAT:
-                    eat();
-                    break;
-                case TEST:
-                    test_file(command);
-                    break;
-                case TAKE:
-                    take(command);
-                    break;
-                case DROP:
-                    drop(command);
-                    break;
-                case MINE:
-                    mine();
-                    break;
-                case BEAM:
-                    if(used) {
-                        goBack(checkpoint);
-                        gameView.show("beamer used\n");
-                        used=false;
-                        cpt=0;
-                    }
-                    else
-                        gameView.show("beamer uncharged\n");
-                    break;
-
-                case QUIT:
-                    if (confirmQuit(command) == true){
-                        gameView.disable();
-                    }
-                    break;
-                default:
-                    break;
-
-            }
             return true;
-        }
-
-    /** 
-     * Try to go Back to one direction. If there is an visited Room, enter
-     * that room, otherwise print an error message.
-     * @param command the command to be analyzed
-     */
-    private void goBack(Command command){
-        if(command.hasSecondWord()) {
-            gameView.show("Back what?\n");
-        }
-        else if(pastRooms.empty()){
-            // si la pile est vide
-            gameView.show("No record of last visited room");
-        }else{
-            // la commande est valide
-            // Try to leave current room.
-
-            Room pastRoom = pastRooms.pop();
-            Room currentRoom = p1.getCurrentRoom();
-            if(pastRoom.getStateExit(currentRoom)==0) {
-                goBack(pastRoom);
-                if(beam1()){
-                    cpt++;
-                    if(cpt==1) {
-                        checkpoint=pastRoom;
-                        gameView.show("beamer charged you can use it in the next room");
-                    }else if(cpt>=2){
-                        gameView.show("beamer can be used\n");
-                        used=true;
-                    }
-                }
-            }
-            else {
-                if(!key()) {
-                    gameView.show("\nyou don't have a key to back to this room use look to find a key \n");
-                }else{
-                    gameView.show("\nyou opened the door \n");
-                    goBack(pastRoom);
-                }
-            }
-        }
-    }
-
-
-    /** 
-     * "Quit" was entered. Check the rest of the command to see
-     * whether we really quit the game.
-     * @param command the confirmation command
-     * @return true, if this command quits the game, false otherwise.
-     */
-    private boolean confirmQuit(Command command) 
-    {
-        if(command.hasSecondWord()) {
-            gameView.show("Quit what?\n");
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    /**
-     * loop closely inside the room, print out the long description of the current Room
-     */
-
-    private void look(){
-        gameView.show(p1.getCurrentRoom().getLongDescription());
-    }
-
-    private void eat(){
-        for(int i=0;i<p1.getCurrentRoom().getItems().size();i++) {
-            if (p1.getCurrentRoom().getItems().get(i).getName().equals("magic_cookie")) {
-                gameView.show("magic cookie eaaten \n");
-                max_weight += 3.0;
-                gameView.show("now your weight capacity is " + Double.toString(max_weight) + "\n");
-            } else {
-                gameView.show("noooo magic cookie \n ");
-            }
-        }
     }
 
 
 
-    private boolean beam1(){
-        for(int i=0;i<p1.getItems().size();i++){
-            if(p1.getItems().get(i).getName().equals("beamer")){
-                return true;
-            }
-        }
-        return false;
-    }
+ 
 
-    private boolean key(){
-        for(int i=0;i<p1.getItems().size();i++){
-            if(p1.getItems().get(i).getName().equals("key")){
-                return true;
-            }
-        }
-        return false;
-    }
+
+
+
+
+
 
 
 

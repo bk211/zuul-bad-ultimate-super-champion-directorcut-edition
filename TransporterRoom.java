@@ -1,6 +1,6 @@
 
 import java.util.HashMap;
-import java.util.Random;
+//import java.util.Random;
 public class TransporterRoom extends Room
 {
     private  RoomRandomizer randomRoom;
