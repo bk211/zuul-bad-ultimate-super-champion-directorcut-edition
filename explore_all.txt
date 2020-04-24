@@ -5,6 +5,7 @@ take
 take key
 drop
 drop key
+take key
 go east
 take key
 go east

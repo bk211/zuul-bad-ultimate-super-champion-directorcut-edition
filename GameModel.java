@@ -22,6 +22,7 @@ public class GameModel extends Observable
     private HashMap<String,Room> rooms;
     private Stack<Room> pastRooms;
     private GameView gameView;
+    private TransporterRoom tr ;
     private double max_weight = 6.0;
     private int cpt = 0;
     boolean used=false;
@@ -36,6 +37,7 @@ public class GameModel extends Observable
         pastRooms = new Stack<Room>();
         createRooms();
         this.parser = new Parser();
+        tr = new TransporterRoom("tr",rooms);
     }
 
     public Player getP1() {
@@ -200,7 +202,10 @@ public class GameModel extends Observable
 
         // Try to leave current room.
         Room currentRoom = p1.getCurrentRoom();
-        Room nextRoom = p1.getCurrentRoom().getExit(direction);
+
+
+
+            Room nextRoom = p1.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             gameView.show("There is no door!\n");
