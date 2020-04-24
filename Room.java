@@ -20,6 +20,7 @@ public class Room
     private String description;
     private String imageLink;
     private HashMap<String, Room> exits;
+    private HashMap<Room,Integer> stateOfExits;
     private ArrayList<Item> items;
 
 
@@ -42,6 +43,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<String, Room>();
+        stateOfExits =  new HashMap<Room,Integer>();
         imageLink = null;
         items = new ArrayList<Item>();
     }
@@ -58,7 +60,10 @@ public class Room
     {
         return exits.get(direction);
     }
-
+    public Integer getStateExit(Room r)
+    {
+        return stateOfExits.get(r);
+    }
 
     /**
      * set imageName as imageLink
@@ -99,6 +104,7 @@ public class Room
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
+    public void setExitsState(Room exit,int state){ stateOfExits.put(exit,new Integer(state)); }
     
     /**
      * Define the exits of this room.  Every direction either 
@@ -155,5 +161,7 @@ public class Room
     {
         return description;
     }
+
+
 
 }

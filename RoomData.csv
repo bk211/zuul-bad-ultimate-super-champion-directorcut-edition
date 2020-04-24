@@ -1,42 +1,42 @@
 parking,in the parking,img/road.jpeg
-east,aile_gauche
-key,there is a key on the ground, 4.2
+east,aile_gauche,2
+key,there is a key on the ground, 4.0
 aile_gauche,in the left wing,img/courtyard.gif
-north,cargo1,south,dock1,up,hall
-magic_cookie,increase your weight capacity, 0.0
+north,cargo1,0,south,dock1,0,up,hall,0
+beamer,there is a beamer on the ground, 4.0
 cargo1,in the cargo1,img/courtyard.gif
-north,cargo2,south,aile_gauche,east,rest
-NONE
+north,cargo2,0,south,aile_gauche,0,east,rest,0
+magic_cookie,increase your weight capacity, 0.0
 cargo2,in the cargo2,img/hallway.gif
-south,cargo1
+south,cargo1,0
 pomme,Il y a une pomme par terre,0
 dock1,in the dock1,img/dungeon.gif
-north,aile_gauche
+north,aile_gauche,1
 cle,Il y a une cle par terre, 1
 dock2,in the dock2,img/outside.gif
-north,aile_droite
+north,aile_droite,0
 NONE
 reactor,in the reactor room,img/throne-room.gif
-sud,rest
+sud,rest,1
 NONE
 rest,in the rest room,img/stairs.gif
-north,reactor,west,cargo1,south,hall,east,vestiaire
+north,reactor,0,west,cargo1,0,south,hall,0,east,vestiaire,0
 NONE
 vestiaire,in the change room,img/hallway.gif
-west,rest,south,aile_droite
+west,rest,0,south,aile_droite,1
 NONE
 aile_droite,in the right wing,img/outside.gif
-north,vestiaire,west,hall,east,cuisine,south,dock2
+north,vestiaire,0,west,hall,0,east,cuisine,0,south,dock2,1
 NONE
 cuisine,in the kitchen,img/courtyard.gif
-west,aile_droite,south,escalier
+west,aile_droite,0,south,escalier,0
 NONE
 escalier,in the staires,img/dungeon.gif
-north,cuisine
+north,cuisine,0
 NONE
 hall,in the Hall,img/hallway.gif
-north,rest,west,aile_gauche,south,commandement,east,aile_droite,
+north,rest,0,west,aile_gauche,0,south,commandement,0,east,aile_droite,1
 NONE
 commandement,in the head quarter,img/stairs.gif
-north,hall
+north,hall,1
 NONE
