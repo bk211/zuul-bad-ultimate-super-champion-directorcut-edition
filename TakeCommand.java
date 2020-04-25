@@ -1,9 +1,7 @@
 import java.util.ArrayList;
 /**
- * Implementation of the 'go' user command.
+ * Implementation of the 'take' user command.
  * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
  */
 public class TakeCommand extends Command
 {
@@ -13,9 +11,12 @@ public class TakeCommand extends Command
     public TakeCommand()
     {
     }
-
+    
     /**
-     * loop closely inside the room, print out the long description of the current Room
+     * Excute methode for take command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
      */
     public void execute(Player player, GameModel gameModel,GameView gameView){
         if(!hasSecondWord()) {

@@ -1,8 +1,6 @@
 /**
- * Implementation of the 'go' user command.
+ * Implementation of the 'back' user command.
  * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
  */
 public class BackCommand extends Command
 {
@@ -12,12 +10,13 @@ public class BackCommand extends Command
     public BackCommand(){
     }
 
-
-        /**
+    /**
      * go to the last visited room, also change the picture of the display
      * @param lastRoom the last visited room
+     * @param gm the gamemodel
+     * @param player the player
+     * @param gameView gameView
      */
-    
     public void goBack(Room lastRoom, GameModel gm, Player player, GameView gameView)
     {
 
@@ -28,12 +27,12 @@ public class BackCommand extends Command
         gm.notifyChange();
     }
 
-
-    /** 
-    * Try to go Back to one direction. If there is an visited Room, enter
-    * that room, otherwise print an error message.
-    * @param command the command to be analyzed
-    */
+    /**
+     * Excute methode for back command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
+     */
     public void execute(Player player, GameModel gameModel,GameView gameView){
         if(hasSecondWord()) {
             gameView.show("Back what?\n");

@@ -1,8 +1,6 @@
 /**
  * Implementation of the 'go' user command.
  * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
  */
 public class GoCommand extends Command
 {
@@ -16,6 +14,9 @@ public class GoCommand extends Command
     /**
      * go to the next room, also change the picture of the display,
      * @param nextRoom the room that the player will go to
+     * @param gm the gamemodel
+     * @param player the player
+     * @param gameView gameView
      */
     public void goRoom(Room nextRoom, GameModel gm, Player player, GameView gameView)
     {
@@ -27,9 +28,11 @@ public class GoCommand extends Command
         gm.notifyChange();
     }
 
-    /** 
-     * Try to go to one direction. If there is an exit, enter the new
-     * room, otherwise print an error message. Returns always 'false'.
+    /**
+     * Excute methode for go command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
      */
     public void execute(Player player, GameModel gameModel,GameView gameView){
 

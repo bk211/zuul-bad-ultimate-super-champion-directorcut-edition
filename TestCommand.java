@@ -2,10 +2,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 /**
- * Implementation of the 'go' user command.
- * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
+ * Implementation of the 'test' user command.
  */
 public class TestCommand extends Command
 {
@@ -17,7 +14,10 @@ public class TestCommand extends Command
     }
 
     /**
-     * loop closely inside the room, print out the long description of the current Room
+     * Excute methode for test command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
      */
     public void execute(Player player, GameModel gameModel,GameView gameView){
 

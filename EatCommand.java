@@ -1,8 +1,5 @@
 /**
- * Implementation of the 'go' user command.
- * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
+ * Implementation of the 'eat' user command.
  */
 public class EatCommand extends Command
 {
@@ -14,7 +11,10 @@ public class EatCommand extends Command
     }
 
     /**
-     * loop closely inside the room, print out the long description of the current Room
+     * Excute methode for eat command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
      */
     public void execute(Player player, GameModel gameModel,GameView gameView){
         for(int i=0;i<player.getCurrentRoom().getItems().size();i++) {

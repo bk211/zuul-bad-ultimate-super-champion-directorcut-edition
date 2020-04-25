@@ -1,8 +1,6 @@
 /**
- * Implementation of the 'go' user command.
+ * Implementation of the 'mine' user command.
  * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
  */
 public class MineCommand extends Command
 {
@@ -14,7 +12,10 @@ public class MineCommand extends Command
     }
 
     /**
-     * loop closely inside the room, print out the long description of the current Room
+     * Excute methode for back command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
      */
     public void execute(Player player, GameModel gameModel,GameView gameView){
        

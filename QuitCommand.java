@@ -1,8 +1,6 @@
 /**
- * Implementation of the 'go' user command.
+ * Implementation of the 'quit' user command.
  * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
  */
 public class QuitCommand extends Command
 {
@@ -13,10 +11,14 @@ public class QuitCommand extends Command
     {
     }
 
-       /** 
+    /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
-     * */
+     * Excute methode for back command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
+     */
     public void execute(Player player, GameModel gameModel,GameView gameView){
         if(hasSecondWord()) {
             gameView.show("Quit what?\n");
