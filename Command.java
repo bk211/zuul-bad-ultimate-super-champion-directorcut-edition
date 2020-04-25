@@ -15,9 +15,7 @@ public abstract class Command
     private String secondWord;
 
     /**
-     * Create a command object. First and second word must be supplied, but
-     * either one (or both) can be null. The command word should be null to
-     * indicate that this was a command that is not recognised by this game.
+     * Create a command object. 
      */
     public Command()
     {
@@ -26,6 +24,7 @@ public abstract class Command
 
 
     /**
+     * return the second word
      * @return The second word of this command. Returns null if there was no
      * second word.
      */
@@ -35,15 +34,7 @@ public abstract class Command
     }
 
     /**
-     * @return true if this command was not understood.
-     */
-    /*
-    public boolean isUnknown()
-    {
-        return (commandWord == CommandWord.UNKNOWN);
-    }*/
-
-    /**
+     * check is the command have a second word
      * @return true if the command has a second word.
      */
     public boolean hasSecondWord()
@@ -52,9 +43,10 @@ public abstract class Command
     }
 
     /**
-     * Execute this command. A flag is returned indicating whether
-     * the game is over as a result of this command.
-     * 
+     * Execute this command. 
+     * @param player the player
+     * @param gameModel the game model
+     * @param gameView the game view
      * @return True, if game should exit; false otherwise.
      */
     public abstract void execute(Player player, GameModel gameModel,GameView gameView);
@@ -63,6 +55,7 @@ public abstract class Command
      * Define the second word of this command (the word
      * entered after the command word). Null indicates that 
      * there was no second word.
+     * @param secondWord the second word
      */
     public void setSecondWord(String secondWord)
     {
