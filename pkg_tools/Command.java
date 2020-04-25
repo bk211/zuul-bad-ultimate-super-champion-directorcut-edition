@@ -1,3 +1,9 @@
+package pkg_tools;
+import pkg_data.Player;
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
+
+
 /**
  * This class is an abstract superclass for all command classes in the game.
  * Each user command is implemented by a specific command subclass.

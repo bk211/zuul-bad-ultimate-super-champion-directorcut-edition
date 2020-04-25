@@ -1,3 +1,5 @@
+package pkg_mainStruct;
+import pkg_tools.CommandWord;
 import java.util.Observable;
 import java.util.Observer;
 

@@ -1,3 +1,9 @@
+package pkg_commands;
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
+import pkg_data.Player;
+import pkg_tools.Command;
+import pkg_data.Item;
 import java.util.ArrayList;
 /**
  * Implementation of the 'drop' user command.

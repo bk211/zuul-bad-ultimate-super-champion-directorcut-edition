@@ -1,3 +1,8 @@
+package pkg_commands;
+import pkg_data.Player;
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
+import pkg_tools.Command;
 /**
  * Implementation of the 'eat' user command.
  */

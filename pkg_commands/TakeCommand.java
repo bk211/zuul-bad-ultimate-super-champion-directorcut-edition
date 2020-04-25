@@ -1,3 +1,9 @@
+package pkg_commands;
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
+import pkg_data.Player;
+import pkg_data.Item;
+import pkg_tools.Command;
 import java.util.ArrayList;
 /**
  * Implementation of the 'take' user command.

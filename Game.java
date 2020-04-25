@@ -1,3 +1,5 @@
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -43,6 +45,10 @@ public class Game
         gameModel.play();    
     }
 
-
+    
+    public static void main(String[] args) {
+        Game g = new Game();
+        g.launch();
+    }
 
 }

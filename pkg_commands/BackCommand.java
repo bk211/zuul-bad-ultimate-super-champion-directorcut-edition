@@ -1,4 +1,10 @@
-//package pkg_commands;
+package pkg_commands;
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
+import pkg_data.Player;
+import pkg_data.Room;
+import pkg_tools.Command;
+
 /**
  * Implementation of the 'back' user command.
  * 

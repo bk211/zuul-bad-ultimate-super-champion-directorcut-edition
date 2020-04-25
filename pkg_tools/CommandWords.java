@@ -1,3 +1,7 @@
+package pkg_tools;
+import java.util.HashMap;
+import pkg_commands.*;
+
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -8,7 +12,6 @@
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-import java.util.HashMap;
 
 public class CommandWords
 {

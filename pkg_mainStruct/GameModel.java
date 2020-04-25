@@ -1,3 +1,6 @@
+package pkg_mainStruct;
+import pkg_data.*;
+import pkg_tools.*;
 import java.util.Observable;
 import java.util.Stack;
 import java.util.HashMap;
@@ -16,7 +19,7 @@ public class GameModel extends Observable
     private HashMap<String,Room> rooms;
     private Stack<Room> pastRooms;
     private GameView gameView;
-    private TransporterRoom tr ;
+    //private TransporterRoom tr ;
 
 
 
@@ -28,7 +31,7 @@ public class GameModel extends Observable
         pastRooms = new Stack<Room>();
         createRooms();
         this.parser = new Parser();
-        tr = new TransporterRoom("tr",rooms);
+        //tr = new TransporterRoom("tr",rooms);
     }
 
     /**

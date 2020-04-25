@@ -1,8 +1,8 @@
+package pkg_tools;
 /*** Representations for all the valid command words for the game* along with a string in a particular language.* 
  * @author Michael Kolling and David J. Barnes
  * @version 2006.03.30
 */
-
 public enum CommandWord{    
     // A value for each command word along with its
     // corresponding user interface string.

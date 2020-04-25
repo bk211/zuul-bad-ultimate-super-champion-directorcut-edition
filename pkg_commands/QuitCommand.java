@@ -1,3 +1,8 @@
+package pkg_commands;
+import pkg_mainStruct.GameModel;
+import pkg_mainStruct.GameView;
+import pkg_data.Player;
+import pkg_tools.Command;
 /**
  * Implementation of the 'quit' user command.
  * 

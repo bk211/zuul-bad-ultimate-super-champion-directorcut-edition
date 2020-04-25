@@ -1,6 +1,6 @@
+package pkg_data;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * Class Room - a room in an adventure game.
  *
