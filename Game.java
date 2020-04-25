@@ -38,7 +38,7 @@ public class Game
     /**
      *  Main play routine.
      */
-    public void lauch() 
+    public void launch() 
     {            
         gameModel.play();    
     }
