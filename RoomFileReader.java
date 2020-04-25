@@ -72,9 +72,6 @@ public class RoomFileReader{
                     room.addItem(new Item(itemName,itemDescription, itemWeight));
                 }            
             }
-            
-            
-
             rooms.put(name, room);
             
         }
