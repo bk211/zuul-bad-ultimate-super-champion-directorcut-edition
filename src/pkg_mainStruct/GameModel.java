@@ -1,8 +1,16 @@
 package pkg_mainStruct;
-import pkg_data.*;
-import pkg_tools.*;
+import pkg_data.Player;
+import pkg_data.Room;
+
+import pkg_tools.Parser;
+import pkg_tools.RoomFileReader;
+import pkg_tools.Command;
+
+
+
 import java.util.Observable;
 import java.util.Stack;
+import java.util.ArrayList;
 import java.util.HashMap;
 //import java.util.Iterator;
 
@@ -19,6 +27,7 @@ public class GameModel extends Observable
     private HashMap<String,Room> rooms;
     private Stack<Room> pastRooms;
     private GameView gameView;
+    private ArrayList<String> userMove;
     //private TransporterRoom tr ;
 
 
@@ -31,6 +40,7 @@ public class GameModel extends Observable
         pastRooms = new Stack<Room>();
         createRooms();
         this.parser = new Parser();
+        userMove = new ArrayList<String>();
         //tr = new TransporterRoom("tr",rooms);
     }
 
@@ -187,10 +197,25 @@ public class GameModel extends Observable
      */
     public void interpretCommandString(String userInput){
         Command command = parser.getCommand(userInput);
-        //debug line>>
-        //System.out.println(">"+command.getSecondWord()+"<");
+        saveCommandString(userInput);
         processCommand(command);
 
+    }
+
+    /**
+     * push the string to the user history
+     * @param UserInput the user input 
+     */
+    private void saveCommandString(String UserInput){
+        userMove.add(UserInput);
+    }
+
+    /**
+     * return the user history
+     * @return user history
+     */
+    public ArrayList<String> getUserHistory(){
+        return userMove;
     }
 
     /**

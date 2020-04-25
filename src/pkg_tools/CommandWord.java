@@ -6,7 +6,7 @@ package pkg_tools;
 public enum CommandWord{    
     // A value for each command word along with its
     // corresponding user interface string.
-    GO("go"), QUIT("quit"), HELP("sos"), LOOK("look"), EAT("eat"), BACK("back"),TEST("test"),TAKE("take"),DROP("drop"),MINE("mine"),BEAM("beam"),UNKNOWN("?");
+    GO("go"), QUIT("quit"), HELP("sos"), LOOK("look"), EAT("eat"), BACK("back"),TEST("test"),TAKE("take"),DROP("drop"),MINE("mine"),BEAM("beam"),UNKNOWN("?"),SAVE("save");
 
     // The command string.
     private String commandString;

@@ -43,6 +43,8 @@ public class CommandWords
         commands.put("drop", new DropCommand());
         commands.put("mine", new MineCommand());
         commands.put("beam", new BeamCommand());
+        commands.put("save", new SaveCommand());
+        
     }
 
 
