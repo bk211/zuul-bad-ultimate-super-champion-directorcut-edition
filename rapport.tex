@@ -3,6 +3,20 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{listings, xcolor}
+\usepackage{hyperref}
+\lstset{
+tabsize = 4, %% set tab space width
+showstringspaces = false, %% prevent space marking in strings, string is defined as the text that is generally printed directly to the console
+numbers = left, %% display line numbers on the left
+commentstyle = \color{green}, %% set comment color
+keywordstyle = \color{blue}, %% set keyword color
+stringstyle = \color{red}, %% set string color
+rulecolor = \color{black}, %% set frame color to avoid being affected by text color
+basicstyle = \small \ttfamily , %% set listing font and size
+breaklines = true, %% enable line breaking
+numberstyle = \tiny,
+}
 \renewcommand{\thesubsubsection}{\Alph{subsubsection})}
 
 \begin{document}
@@ -31,19 +45,19 @@
 \section{7.42 TIME OUT}
 On appel la fonction dans la classe GameView dans la methode update on code la methode dans GameModel Au lieu d’utiliser le temps on compte le nombre de rooms
 
-\begin{verbatim}
+\begin{lstlisting}[language=Java]
     public void timeOut(){
         if(pastRooms.size()==20) {
             gameView.show("Time ouuuuuuuutt\n");
             interpretCommandString("quit");
         }
     }
-\end{verbatim}
+\end{lstlisting}
 
 \section{7.43.45 looked door/trap door}
 ayant fait un fichier csv pour la description  des rooms on a juste rajouté une méthode pour dire c'est quoi l'état de la porte en lisant le fichier csv,état 1 pour trap door ,2 pour looked room 0 si y'a rien
 
-\begin{verbatim}
+\begin{lstlisting}[language=Java]
             if (currentRoom.getStateExit(nextRoom) == 0||currentRoom.getStateExit(nextRoom) == 1 ) {
                 goRoom(nextRoom);
                 if (beam1()) {
@@ -65,9 +79,9 @@ ayant fait un fichier csv pour la description  des rooms on a juste rajouté une
                     goRoom(nextRoom);
                 }
             }
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}[language=Java]
             if(pastRoom.getStateExit(currentRoom)==0) {
                 goBack(pastRoom);
                 if(beam1()){
@@ -89,10 +103,10 @@ ayant fait un fichier csv pour la description  des rooms on a juste rajouté une
                     goBack(pastRoom);
                 }
             }
-\end{verbatim}
+\end{lstlisting}
 \section{7.44 beamer}
 pour cette fonctionnalité on a utiliser a compteur qui reviens a zero quand on utilise le beamer,pour utiliser le beamer faut le prendre comme un item en utilisant look et ensuite quand il est prêt a être utiliser faut taper la commande beam
-\begin{verbatim}
+\begin{lstlisting}[language=Java]
     private boolean beam1(){
         for(int i=0;i<p1.getItems().size();i++){
             if(p1.getItems().get(i).getName().equals("beamer")){
@@ -114,11 +128,11 @@ pour cette fonctionnalité on a utiliser a compteur qui reviens a zero quand on 
                     break;
                 
                     
-\end{verbatim}
+\end{lstlisting}
 
 \section{7.46 Transporter room }
 on a créé deux classe TrasporterRoom et RoomRandomizer ; TrasporterRoom hérite de Room comme stipulé dans le chapitre 9 et utilise RoomRandomizer qui utilise elle même la classe Random .
-\begin{verbatim}
+\begin{lstlisting}[language=Java]
 
 import java.util.HashMap;
 import java.util.Random;
@@ -165,8 +179,599 @@ public class RoomRandomizer
         return roomTab[randomize.nextInt (myRooms.size())];
     }
 }
-\end{verbatim}
+\end{lstlisting}
 
 \section{7.47.0 abstract Command }
+Beaucoup de modifications ont été effectué pour cette partie, préparer vous à voir beaucoup de code.\\
+Notre but est de décentraliser la classe GameModel qui est surchargé par le traitement des commandes d'utilisateur, 
+On aimerais avoir une classe par commande, tout d'abord la class Command bascule vers une class abtraite.
+J'ai enlevé les definitions de getteur et de setteur ainsi que les commentaires pour avoir plus de lisibilité.
+Ce qui compte ici c'est que nous avons une méthode abstraite "execute" qui lance le traitement de cette commande. 
+
+\begin{lstlisting}[language=Java]
+    
+public abstract class Command
+{
+    private String secondWord;
+
+    public Command()
+    public String getSecondWord()
+    public boolean hasSecondWord()
+    public void setSecondWord(String secondWord)
+
+    public abstract void execute(Player player, 
+        GameModel gameModel,GameView gameView);
+
+}
+\end{lstlisting}
+
+Ensuite passons à la classe CommandeWords, de meme je ne vous montre pas les méthodes getCommandList ou isCommand, ils ont déja été présenté dans l'iteration prédecedente.\\
+Nous avons une nouvelle hashMap constitué de clé String et de valeur Command, c'est ici que nous stockerons les classes de traitement de commande.
+Comme vous pouvez le voir, à chaque mots clé correspond une classe associé, par exemple, le mot clé "go" est associé à la classe de commande "GoCommand" et ainsi de suite.\\
+Enfin la méthode get retourne une classe hérité de la classe abstraite Command, en fonction du mot clé donné en paramètre.
+
+\begin{lstlisting}[language=Java, caption={CommandeWords}]
+public class CommandWords
+{
+
+    private HashMap<String, CommandWord> validCommands;
+    private HashMap<String, Command> commands;
+
+    public CommandWords()
+    {
+        validCommands = new HashMap<String, CommandWord>();
+        for (CommandWord command : CommandWord.values()) {
+            if(command != CommandWord.UNKNOWN){
+                validCommands.put(command.toString(), command);
+            }
+        }
+
+        commands = new HashMap<String, Command>();
+        commands.put("go", new GoCommand());
+        commands.put("quit", new QuitCommand());
+        commands.put("sos", new HelpCommand());
+        commands.put("look", new LookCommand());
+        commands.put("eat", new EatCommand());
+        commands.put("back", new BackCommand());
+        commands.put("test", new TestCommand());
+        commands.put("take", new TakeCommand());
+        commands.put("drop", new DropCommand());
+        commands.put("mine", new MineCommand());
+        commands.put("beam", new BeamCommand());
+    }
+
+    public boolean isCommand(String aString)
+
+    public String getCommandList()
+
+    public Command get(String word)
+    {
+        return (Command)commands.get(word);
+    }
+
+}
+\end{lstlisting}
+
+Puis, dans la classe Parser, une légère modification est necessaire car la classe Command est devenue abstraite, nous avons besoin d'utiliser la méthode get pour avoir la bonne classe en retour de fonction.
+
+\begin{lstlisting}[language=Java, caption={Parser}]
+    public Command getCommand(String inputLine) 
+    {
+        String word1;
+        String word2;
+
+        StringTokenizer tokenizer = new StringTokenizer(inputLine);
+        if(tokenizer.hasMoreTokens())
+            word1 = tokenizer.nextToken();  
+        else
+            word1 = null;
+        if(tokenizer.hasMoreTokens())
+            word2 = tokenizer.nextToken();     
+        else
+            word2 = null;
+        Command command = commands.get(word1);
+        if(command != null) {
+            command.setSecondWord(word2);
+        }
+        return command;
+    }   
+
+\end{lstlisting}
+
+Beaucoup de fonctions ont disparue, ils ont été transféré à leur classe associé, interpretCommandString n'a pas changé, en fonction du String donné en argument, 
+il va demander au parser de lui retourner la bonne classe associé. Enfin processCommand va vérifier la validité de la commande, si elle n'est pas null, elle lance sa méthode "execute".\\
+Certains attributs implémenté par ma camarade ont été transféré dans la classe player (cpt, used, checkpoint) par exemple.
+
+\begin{lstlisting}[language=Java, caption={GameModel}]
+    public class GameModel extends Observable
+    {
+        private Player p1;
+        private Parser parser;
+        private HashMap<String,Room> rooms;
+        private Stack<Room> pastRooms;
+        private GameView gameView;
+        private TransporterRoom tr ;
+
+        public GameModel()
+        public Player getP1() 
+        public int getPastRoomsSize() 
+        public void addGameView(GameView gm)
+        public Room getCurrentRoom() 
+        private void createRooms()
+        public void notifyChange()
+        public String getImageLinkString()
+        public String getWelcomeString() 
+        public void timeOut(){
+        public void addPastRoom(Room r){
+        public Stack<Room> getPastRooms()
+        public String getGoodByeString()
+        public String getHelpString()
+        public String getExitString()
+        public String getLocationInfo() 
+        public String getCommandString()
+        
+        public void interpretCommandString(String userInput){
+            Command command = parser.getCommand(userInput);
+            processCommand(command);
+    
+        }
+
+        public void play() {            
+            gameView.printWelcome();
+        }
+    
+        private boolean processCommand(Command command)
+        {
+    
+                if(command == null){
+                    gameView.show("I don't know what you mean...\n");
+                    return false;
+                }else{
+                    command.execute(p1, this ,gameView);
+                }
+    
+                return true;
+        }
+    
+    }
+\end{lstlisting}
+
+En ce qui concerne la classe player, vous avez le transfer des attributs cpt, checkpoint, used et max\_weight depuis le GameModel.
+Les nouvelles méthodes apparue étant juste des getter et des setter, je vous mets pas le code, leur declaration est suffisamment explicit.
+\begin{lstlisting}[language=Java, caption={Player}]
+    import java.util.ArrayList;
+    public class Player {
+        private String name;
+        private Room currentRoom;
+        private double weight ;
+        private ArrayList<Item> items;
+        private int cpt;
+        private Room checkpoint;
+        private boolean used=false;
+        private double max_weight = 6.0;
+    
+        public Player(String name, Room currentRoom)
+        public double getMaxWeight()
+        public void setMaxWeight(double w)
+        public void setUsed(boolean v)
+        public boolean getUsed()
+        public void setCheckpoint(Room r)
+        public Room getCheckpoint()
+        public void incCpt()
+        public void setCpt(int v)
+        public int getCpt()
+        public String getName()
+        public Room getCurrentRoom()
+        public void setCurrentRoom(Room currentRoom)
+        public ArrayList<Item> getItems()
+        public void setItems(ArrayList<Item> items)
+        public double getWeight()
+        public void setWeight(double weight)
+        public boolean key(){
+            for(int i=0;i<getItems().size();i++){
+                if(getItems().get(i).getName().equals("key")){
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+        public boolean beam1(){
+            for(int i=0;i<getItems().size();i++){
+                if(getItems().get(i).getName().equals("beamer")){
+                    return true;
+                }
+            }
+            return false;
+        }
+    
+    }
+    
+\end{lstlisting}
+
+Enfin passons au commandes, voici donc la liste des classes de command.
+J'ai enlever les commentaires car cela gène la lecture, ces classe n'ont pas subit de grande transformation, ils reste dans l'esprit des fonctions que je vous ai présenté dans les iterations 
+prédecedente. Néaumoins, si vous désirez voir ces détails, voici le lien.\\
+\url{https://github.com/bk211/zuul-bad-ultimate-super-champion-directorcut-edition}
+\begin{lstlisting}[language=Java, caption={Liste de commande}]
+
+    BackCommand.java
+    BeamCommand.java
+    DropCommand.java
+    EatCommand.java
+    GoCommand.java
+    HelpCommand.java
+    LookCommand.java
+    MineCommand.java
+    QuitCommand.java
+    TakeCommand.java
+    TestCommand.java
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, caption={Backcommand}]
+public class BackCommand extends Command
+{
+
+    public BackCommand()
+
+    public void goBack(Room lastRoom, GameModel gm, Player player, GameView gameView)
+    {
+
+        player.setCurrentRoom(lastRoom);
+        if(player.getCurrentRoom().getImageLinkString() != null){
+            gameView.showImage(player.getCurrentRoom().getImageLinkString());
+        }
+        gm.notifyChange();
+    }
+
+    public void execute(Player player, GameModel gameModel,GameView gameView){
+        if(hasSecondWord()) {
+            gameView.show("Back what?\n");
+        }
+        else if(gameModel.getPastRooms().empty()){
+            // si la pile est vide
+            gameView.show("No record of last visited room");
+        }else{
+            // la commande est valide
+            // Try to leave current room.
+
+            Room pastRoom = gameModel.getPastRooms().pop();
+            Room currentRoom = player.getCurrentRoom();
+            if(pastRoom.getStateExit(currentRoom)==0) {
+                goBack(pastRoom, gameModel, player, gameView);
+                if (player.beam1()) {
+                    player.incCpt();
+                    if (player.getCpt() == 1) {
+                        player.setCheckpoint(pastRoom);
+                        gameView.show("beamer charged you can use it in the next room");
+                    } else if (player.getCpt() >= 2) {
+                        gameView.show("beamer can be used\n");
+                        player.setUsed(true);
+                    }
+                }
+            }
+            else {
+                if(!player.key()) {
+                    gameView.show("\nyou don't have a key to back to this room use look to find a key \n");
+                }else{
+                    gameView.show("\nyou opened the door \n");
+
+                    goBack(pastRoom, gameModel, player, gameView);
+                }
+            }
+        }
+    }
+
+    
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Beamcommand}]
+   public class BeamCommand extends Command
+   {
+       public BeamCommand()
+       {
+       }
+   
+       public void goBack(Room lastRoom, GameModel gm, Player player, GameView gameView)
+       {
+   
+           player.setCurrentRoom(lastRoom);
+           if(player.getCurrentRoom().getImageLinkString() != null){
+               gameView.showImage(player.getCurrentRoom().getImageLinkString());
+           }
+           gm.notifyChange();
+       }
+   
+       public void execute(Player player, GameModel gameModel,GameView gameView){
+   
+           if(player.getUsed()){
+               goBack(player.getCheckpoint(), gameModel, player, gameView);
+               gameView.show("beamer used\n");
+               player.setUsed(false);
+               player.setCpt(0);
+           }
+           else
+               gameView.show("beamer uncharged\n");
+       }
+   }
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, caption={Dropcommand}]
+    import java.util.ArrayList;
+    public class DropCommand extends Command
+    {
+        public DropCommand()
+        {
+        }
+    
+        public void execute(Player player, GameModel gameModel,GameView gameView){
+            if(!hasSecondWord()) {
+                // if there is no second word, we don't know where to go...
+                gameView.show("drop what ? \n");
+                return;
+            }
+            String itemName = getSecondWord();
+            ArrayList<Item> pItem = player.getItems();
+            for(int i=0;i<pItem.size();i++){
+                if(pItem.get(i).getName().equals(itemName)) {
+        
+                    gameView.show("i droped the " + itemName +"\n");
+        
+                    ArrayList<Item> roomListItems  = player.getCurrentRoom().getItems();
+                    roomListItems.add(pItem.get(i));
+                    player.getCurrentRoom().setItems(roomListItems);
+        
+                    double total_weight = player.getWeight() - pItem.get(i).getWeight();
+                    player.setWeight(total_weight);
+        
+                    ArrayList<Item> newStateOfList  = player.getItems();
+                    newStateOfList.remove(i);
+                    player.setItems(newStateOfList);
+        
+        
+                }
+                else
+                    gameView.show("i already don't have this item \n");
+            }
+        }
+    }
+    
+    
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Eatcommand}]
+   public class EatCommand extends Command
+   {
+
+       public EatCommand()
+       {
+       }
+       public void execute(Player player, GameModel gameModel,GameView gameView){
+           for(int i=0;i<player.getCurrentRoom().getItems().size();i++) {
+               if (player.getCurrentRoom().getItems().get(i).getName().equals("magic_cookie")) {
+                   gameView.show("magic cookie eaaten \n");
+                   player.setMaxWeight(player.getMaxWeight() + 3);
+                   gameView.show("now your weight capacity is " + Double.toString(player.getMaxWeight()) + "\n");
+               } else {
+                   gameView.show("noooo magic cookie \n ");
+               }
+           }
+       
+       }
+   }   
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, caption={Gocommand}]
+public class GoCommand extends Command
+{
+    public GoCommand()
+    {
+    }
+
+    public void goRoom(Room nextRoom, GameModel gm, Player player, GameView gameView)
+    {
+        gm.addPastRoom(player.getCurrentRoom());
+        player.setCurrentRoom(nextRoom);
+        if(player.getCurrentRoom().getImageLinkString() != null){
+            gameView.showImage(player.getCurrentRoom().getImageLinkString());
+        }
+        gm.notifyChange();
+    }
+
+    public void execute(Player player, GameModel gameModel,GameView gameView){
+
+        if(!hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            gameView.show("Go where?");
+            return;
+        }
+
+        String direction = getSecondWord();
+
+        // Try to leave current room.
+        Room currentRoom = player.getCurrentRoom();
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
+
+        if (nextRoom == null) {
+            gameView.show("There is no door!\n");
+        }
+        else {
+            if (currentRoom.getStateExit(nextRoom) == 0||currentRoom.getStateExit(nextRoom) == 1 ) {
+                goRoom(nextRoom,  gameModel, player, gameView);
+                if (player.beam1()) {
+                    player.incCpt();
+                    if (player.getCpt() == 1) {
+                        player.setCheckpoint(nextRoom);
+                        gameView.show("beamer charged you can use it in the next room");
+                    } else if (player.getCpt() >= 2) {
+                        gameView.show("beamer can be used\n");
+                        player.setUsed(true);
+                    }
+                }
+
+            }
+            else {
+                if(!player.key()) {
+                    gameView.show("\nlooocked rooom right here find a key to open it\n");
+                }else{
+                    goRoom(nextRoom,  gameModel, player, gameView);
+                }
+            }
+        }
+
+    
+    }
+
+    
+}
+
+
+
+
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Helpcommand}]
+    public class HelpCommand extends Command
+{
+    public HelpCommand()
+    {
+    }
+
+    public void execute(Player player, GameModel gameModel,GameView gameView){
+        gameView.printHelp();
+    }
+
+    
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Lookcommand}]
+    public class LookCommand extends Command
+{
+    public LookCommand()
+    {
+    }
+
+    public void execute(Player player, GameModel gameModel,GameView gameView){
+        gameView.show(player.getCurrentRoom().getLongDescription());
+    }
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Minecommand}]
+    public class MineCommand extends Command
+    {
+
+        public MineCommand()
+        {
+        }
+    
+        public void execute(Player player, GameModel gameModel,GameView gameView){
+           
+            if(player.getItems().size()==0)
+                gameView.show("i am poor i only have \n");
+            for(Item i:player.getItems())
+                gameView.show(i.getName() + "\n");
+            gameView.show(Double.toString(player.getWeight()) + "\n");
+            
+        }
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, caption={Quitcommand}]
+    public class QuitCommand extends Command
+{
+
+    public QuitCommand()
+    {
+    }
+
+    public void execute(Player player, GameModel gameModel,GameView gameView){
+        if(hasSecondWord()) {
+            gameView.show("Quit what?\n");
+        }
+        else {
+            gameView.disable();    
+        }
+    }
+
+    
+}
+
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Takecommand}]
+public class TakeCommand extends Command
+    {
+
+        public TakeCommand()
+        {
+        }
+
+        public void execute(Player player, GameModel gameModel,GameView gameView){
+            if(!hasSecondWord()) {
+                // if there is no second word, we don't know where to go...
+                gameView.show("take what ?\n");
+                return;
+            }
+            String itemName = getSecondWord();
+            ArrayList<Item> roomItem = player.getCurrentRoom().getItems();
+            for(int i=0;i<roomItem.size();i++){
+                if(roomItem.get(i).getName().equals(itemName) && !itemName.equals("magic_cookie")) {
+                    if(player.getWeight()>player.getMaxWeight() || player.getItems().size() > 5) {
+                        gameView.show("it's enough for me ?\n");
+                        return;
+                    }
+    
+                    gameView.show("i took the " + itemName+ "\n");
+    
+                    ArrayList<Item> newStateOfList  = player.getItems();
+                    newStateOfList.add(roomItem.get(i));
+                    double total_weight = player.getWeight() + roomItem.get(i).getWeight();
+                    player.setWeight(total_weight);
+                    player.setItems(newStateOfList);
+    
+                    ArrayList<Item> roomListItems  = player.getCurrentRoom().getItems();
+                    roomListItems.remove(i);
+                    player.getCurrentRoom().setItems(roomListItems);
+    
+                }
+                else
+                    gameView.show("there is no item who have this name in this room \n");
+            }
+        }
+    }
+    
+\end{lstlisting}
+\begin{lstlisting}[language=Java, caption={Testcommand}]
+    public class TestCommand extends Command
+    {
+        public TestCommand()
+        {
+        }
+    
+        public void execute(Player player, GameModel gameModel,GameView gameView){
+    
+            if(!hasSecondWord()) {
+                // if there is no second word, we don't know where to go...
+                gameView.show("test what ?");
+                return;
+            }
+            String file = getSecondWord();
+            try {
+                Scanner scanner = new Scanner(new File(file));
+                while (scanner.hasNextLine()) {
+                    gameModel.interpretCommandString(scanner.nextLine());
+                }
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
+\end{lstlisting}
+
+
 \end{document}
 
