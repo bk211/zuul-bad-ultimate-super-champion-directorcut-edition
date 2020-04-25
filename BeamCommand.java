@@ -1,8 +1,6 @@
 /**
  * Implementation of the 'go' user command.
  * 
- * @author Michael Kolling
- * @version 1.0 (December 2002)
  */
 public class BeamCommand extends Command
 {
@@ -16,8 +14,10 @@ public class BeamCommand extends Command
     /**
      * go to the last visited room, also change the picture of the display
      * @param lastRoom the last visited room
+     * @param gm the gameModel
+     * @param player the player
+     * @param gameView the gameView
      */
-    
     public void goBack(Room lastRoom, GameModel gm, Player player, GameView gameView)
     {
 
@@ -27,8 +27,12 @@ public class BeamCommand extends Command
         }
         gm.notifyChange();
     }
+
     /**
-     * loop closely inside the room, print out the long description of the current Room
+     * Excute methode for beam command
+     * @param player the player
+     * @param gameModel the gameModel
+     * @param gameView the gameView
      */
     public void execute(Player player, GameModel gameModel,GameView gameView){
 
