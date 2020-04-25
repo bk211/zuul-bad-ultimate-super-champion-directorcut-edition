@@ -772,6 +772,52 @@ public class TakeCommand extends Command
     
 \end{lstlisting}
 
+\section{7.47.1}
+J'ai crée 4 paquet pour le mise en paquet, la première est le package pkg\_commands qui regroupe les 
+différentes commandes de jeu utilisé par le joueur comme "go", "back", "eat".
+\begin{lstlisting}[language=Java, caption={pkg\_commands}]
+    BackCommand.java
+    EatCommand.java
+    LookCommand.java
+    TakeCommand.java
+    BeamCommand.java
+    GoCommand.java
+    MineCommand.java
+    TestCommand.java
+    DropCommand.java
+    HelpCommand.java
+    QuitCommand.java
+\end{lstlisting}
+
+Le paquet pkg\_data stocke toutes les classes support qui permet de reprensenter une information de jeu, il y a donc la class Item,
+Player ainsi que les 3 classes en rapport avec Room.
+\begin{lstlisting}[language=Java, caption={pkg\_data}]
+    Item.java  
+    Player.java  
+    Room.java  
+    RoomRandomizer.java  
+    TransporterRoom.java
+\end{lstlisting}
+
+Puis arrive le paquet pkg\_tools qui contient les classes "outils", ils sont utilisés par les classe supérieur pour traiter ou stocker certains donnée,
+Par exemple le parser pour la conversion instruction String vers instruction Command à proprement parler, 
+la classe RoomFileReader qui permet de lire le fichier RoomData.csv, qui stocke la configuration des salles de jeu.
+
+\begin{lstlisting}[language=Java, caption={pkg\_tools}]
+    Command.java  
+    CommandWord.java  
+    CommandWords.java  
+    Parser.java  
+    RoomFileReader.java
+\end{lstlisting}
+
+Enfin le paquet mainStruct est composé des 2 grande composante du modele MVC ainsi que la classe UserInterface.
+Ce sont des classes d'entrée au niveau supérieur pour le programme.
+\begin{lstlisting}[language=Java, caption={pkg\_commands}]
+    GameModel.java  
+    GameView.java  
+    UserInterface.java
+\end{lstlisting}
 
 \end{document}
 
