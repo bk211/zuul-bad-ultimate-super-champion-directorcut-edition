@@ -40,7 +40,7 @@ public class Game
     /**
      *  Main play routine.
      */
-    public void launch() 
+    public void play() 
     {            
         gameModel.play();    
     }
@@ -48,7 +48,7 @@ public class Game
     
     public static void main(String[] args) {
         Game g = new Game();
-        g.launch();
+        g.play();
     }
 
 }
