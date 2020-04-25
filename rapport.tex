@@ -819,5 +819,42 @@ Ce sont des classes d'entrée au niveau supérieur pour le programme.
     UserInterface.java
 \end{lstlisting}
 
+
+\section{7.53 7.54}
+BlueJ a été abandonné dès le début du projet car il n'apportait aucun bénefice sur le developement du projet,
+ car l'interface BlueJ était lent au niveau de la compilation et pénible à utiliser car il ne présente pas de foncitonalité interessente si ce n'est pédagogique pour un débutant en Java
+ , pour exécuter le programme par exemple, il fallait charger blueJ,
+ lancer une nouvelle instance de Game puis lancer la méthode play(). Dès le début, un fichier Makefile était présent pour gérer d'éventuel dépendance.
+Je vous mets quand même le code de la classe Game ici.
+
+\begin{lstlisting}[language=Java, caption={pkg\_commands}]
+    public class Game 
+    {
+        private GameModel gameModel;
+        private GameView gameView;
+    
+        public Game() 
+        {
+            gameModel = new GameModel();
+            
+            gameView = new GameView(gameModel);
+            gameModel.addObserver(gameView);
+            gameModel.addGameView(gameView);
+    
+        }
+
+        public void play() 
+        {            
+            gameModel.play();    
+        }
+    
+        public static void main(String[] args) {
+            Game g = new Game();
+            g.play();
+        }
+    
+    }
+\end{lstlisting}
+
 \end{document}
 
