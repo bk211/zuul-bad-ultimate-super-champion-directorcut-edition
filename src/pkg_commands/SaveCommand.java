@@ -44,7 +44,7 @@ public class SaveCommand extends Command
                 writter.write(str+"\n");
             }
             writter.close();
-            
+            gameView.show("Your session has been save, to load your session\ntype <test filename>");
         } catch (IOException e) {
             gameView.show("Error with the given file\n");
         }
