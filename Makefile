@@ -1,31 +1,59 @@
 CC= javac
-CCFLAGS = -Werror -Xlint:-path 
-
-Main.class:	Main.java Command.class Player.class CommandWords.class Game.class GameModel.class GameView.class Parser.class Room.class UserInterface.class Item.class
+CCFLAGS = -Werror
+SRC = Parser.java CommandWord.java CommandWords.java Item.java GameModel.java Player.java RoomRandomizer.java TransporterRoom.java Room.java RoomFileReader.java GameView.java UserInterface.java Game.java Main.java Command.java LookCommand.java BeamCommand.java MineCommand.java GoCommand.java QuitCommand.java TakeCommand.java DropCommand.java HelpCommand.java TestCommand.java EatCommand.java BackCommand.java
+OBJ = $(SRC:.c=.class)
+Main.class:	$(OBJ)
 	$(CC) $(CCFLAGS) Main.java
 
-Item.class:	Item.java
+Parser.class:	Parser.java
 	$(CC) $(CCFLAGS) $<
-
-Command.class:	Command.java
+CommandWord.class:	CommandWord.java
 	$(CC) $(CCFLAGS) $<
 CommandWords.class:	CommandWords.java
 	$(CC) $(CCFLAGS) $<
-Game.class:	Game.java
-	$(CC) $(CCFLAGS) $<
-Player.class:	Player.java
+Item.class:	Item.java
 	$(CC) $(CCFLAGS) $<
 GameModel.class:	GameModel.java
 	$(CC) $(CCFLAGS) $<
-GameView.class:	GameView.java
+Player.class:	Player.java
 	$(CC) $(CCFLAGS) $<
-Parser.class:	Parser.java
+RoomRandomizer.class:	RoomRandomizer.java
+	$(CC) $(CCFLAGS) $<
+TransporterRoom.class:	TransporterRoom.java
 	$(CC) $(CCFLAGS) $<
 Room.class:	Room.java
 	$(CC) $(CCFLAGS) $<
+RoomFileReader.class:	RoomFileReader.java
+	$(CC) $(CCFLAGS) $<
+GameView.class:	GameView.java
+	$(CC) $(CCFLAGS) $<
 UserInterface.class:	UserInterface.java
 	$(CC) $(CCFLAGS) $<
-RoomFileReader.class:	RoomFileReader.java
+Game.class:	Game.java
+	$(CC) $(CCFLAGS) $<
+Command.class:	Command.java
+	$(CC) $(CCFLAGS) $<
+LookCommand.class:	LookCommand.java
+	$(CC) $(CCFLAGS) $<
+BeamCommand.class:	BeamCommand.java
+	$(CC) $(CCFLAGS) $<
+MineCommand.class:	MineCommand.java
+	$(CC) $(CCFLAGS) $<
+GoCommand.class:	GoCommand.java
+	$(CC) $(CCFLAGS) $<
+QuitCommand.class:	QuitCommand.java
+	$(CC) $(CCFLAGS) $<
+TakeCommand.class:	TakeCommand.java
+	$(CC) $(CCFLAGS) $<
+DropCommand.class:	DropCommand.java
+	$(CC) $(CCFLAGS) $<
+HelpCommand.class:	HelpCommand.java
+	$(CC) $(CCFLAGS) $<
+TestCommand.class:	TestCommand.java
+	$(CC) $(CCFLAGS) $<
+EatCommand.class:	EatCommand.java
+	$(CC) $(CCFLAGS) $<
+BackCommand.class:	BackCommand.java
 	$(CC) $(CCFLAGS) $<
 
 
