@@ -42,6 +42,7 @@ public class CommandWords
         commands.put("beam", new BeamCommand());
     }
 
+
     /**
      * Check whether a given String is a valid command word. 
      * @param aString the given String
@@ -49,17 +50,6 @@ public class CommandWords
      * 
      * false if it isn't.
      */
-    public CommandWord getCommandWord(String commandWord)
-    {
-        CommandWord command = validCommands.get(commandWord);
-        if(command != null) {
-            return command;
-        }
-        else {
-            return CommandWord.UNKNOWN;
-        }
-    }
-
     public boolean isCommand(String aString)
     {
         return validCommands.containsKey(aString);
@@ -77,16 +67,7 @@ public class CommandWords
         return result;
     }
     
-    //to be delete
-    public void showAll()
-    {
-        for(String command : validCommands.keySet()) {
-            System.out.print(command + "  ");
-        }
-        System.out.println();
-    }
-
-        /**
+    /**
      * Given a command word, find and return the matching command object.
      * Return null if there is no command with this name.
      */
