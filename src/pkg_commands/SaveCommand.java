@@ -10,7 +10,7 @@ import pkg_data.Player;
 import pkg_tools.Command;
 
 /**
- * Implementation of the 'test' user command.
+ * Implementation of the 'save' user command.
  */
 public class SaveCommand extends Command
 {
@@ -37,7 +37,7 @@ public class SaveCommand extends Command
         String filename = getSecondWord();
         ArrayList<String> userHistory = gameModel.getUserHistory();
         userHistory.remove(userHistory.size() -1); // remove last instruction since it's the save instruction
-        
+
         try {
             FileWriter writter = new FileWriter(filename);
             for (String str : userHistory) {
