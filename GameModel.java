@@ -31,9 +31,18 @@ public class GameModel extends Observable
         tr = new TransporterRoom("tr",rooms);
     }
 
+    /**
+     * return the player p1
+     * @return player object
+     */
     public Player getP1() {
         return p1;
     }
+
+    /**
+     * return the pastRoom siwe
+     * @return pastRoom size
+     */
 
     public int getPastRoomsSize() {
         return pastRooms.size();
@@ -46,6 +55,11 @@ public class GameModel extends Observable
     public void addGameView(GameView gm){
         gameView = gm;
     }
+
+    /**
+     * return the currentRoom object
+     * @return currentRoom , the cuurrent location Room
+     */
 
     public Room getCurrentRoom() {
         return p1.getCurrentRoom();
@@ -62,11 +76,8 @@ public class GameModel extends Observable
     }
 
     /**
-     * return the currentRoom object
-     * @return currentRoom , the cuurrent location Room
+     * set change et notify all observers
      */
-
-
     public void notifyChange(){
         setChanged();
         notifyObservers();    
@@ -93,7 +104,9 @@ public class GameModel extends Observable
         +"in the search of great treasure and exciting adventure  ";
     }
 
-
+    /**
+     * check if the game time is over
+     */
     public void timeOut(){
         if(pastRooms.size()==20) {
             gameView.show("Time ouuuuuuuutt\n");
@@ -101,10 +114,18 @@ public class GameModel extends Observable
         }
     }
 
+    /**
+     * add a room to the pastRoom
+     * @param r the room
+     */
     public void addPastRoom(Room r){
         pastRooms.add(r);
     }
 
+    /**
+     * return the pastRooms
+     * @return the pastRooms
+     */
     public Stack<Room> getPastRooms(){
         return pastRooms;
     }
@@ -196,17 +217,5 @@ public class GameModel extends Observable
 
             return true;
     }
-
-
-
- 
-
-
-
-
-
-
-
-
 
 }
