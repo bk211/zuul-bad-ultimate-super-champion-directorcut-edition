@@ -31,4 +31,7 @@ back
 go east
 go south
 beam
-
+sos
+help
+back
+save tmp.txt
