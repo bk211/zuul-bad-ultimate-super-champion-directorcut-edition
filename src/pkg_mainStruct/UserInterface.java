@@ -119,9 +119,9 @@ public class UserInterface implements ActionListener
         myFrame.getContentPane().add(panel, BorderLayout.CENTER);
 
         // add some event listeners to some components
-        myFrame.addWindowListener(new WindowAdapter() {
+        /*myFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {System.exit(0);}
-        });
+        });*/
 
         entryField.addActionListener(this);
         button.addActionListener(this);
